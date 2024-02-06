@@ -1,4 +1,4 @@
-import Main from "../components/Main";
+import HighScores from "../components/HighScores";
 import NavBar from "../components/NavBar";
 
 const Ranking = () => {
