@@ -15,15 +15,19 @@ const NavBar = () => {
   const navStyle = { backgroundColor: "#333" };
 
   return (
-    <BottomNavigation style={navStyle} showLabels value={value}>
+    <BottomNavigation
+      style={navStyle}
+      showLabels
+      value={value}
+      onChange={(event, newValue) => setValue(newValue)}
+    >
       <BottomNavigationAction
         style={{ color: value === 0 ? "#fff" : "#888" }}
         className="nav-button"
         label="Pokédex"
         icon={<MdOutlineCatchingPokemon className="icon" />}
         onClick={() => {
-          navigate("/fight");
-          setValue(0);
+          navigate("/");
         }}
       />
       <BottomNavigationAction
@@ -32,7 +36,6 @@ const NavBar = () => {
         label="Fight!"
         onClick={() => {
           navigate("/fight");
-          setValue(1);
         }}
         icon={<GiPunchBlast className="icon" />}
       />
@@ -41,8 +44,7 @@ const NavBar = () => {
         className="nav-button"
         label="Ranking"
         onClick={() => {
-          navigate("/fight");
-          setValue(2);
+          navigate("/ranking");
         }}
         icon={<GoTrophy className="icon" />}
       />

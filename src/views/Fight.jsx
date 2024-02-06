@@ -6,7 +6,6 @@ const Fight = () => {
     <>
       <h1>Fight</h1>
       <Battle />
-      <NavBar />
     </>
   );
 };

@@ -3,6 +3,7 @@ import Home from "./views/Home";
 import Fight from "./views/Fight";
 import Ranking from "./views/Ranking";
 import "./App.css";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/fight" element={<Fight />} />
         <Route path="/ranking" element={<Ranking />} />
       </Routes>
+      <NavBar />
     </>
   );
 }

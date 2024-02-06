@@ -6,7 +6,6 @@ const Ranking = () => {
     <>
       <h1>Ranking</h1>
       <HighScores />
-      <NavBar />
     </>
   );
 };
