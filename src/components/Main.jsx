@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
 import "../styles/Main.css";
+import PokemonModal from "./PokemonModal";
+import { getTypeColor } from "../utils/strings";
 
 const Main = () => {
   const [pokemon, setPokemon] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const getPokemon = async () => {
     try {
@@ -31,56 +38,29 @@ const Main = () => {
     fetchPokemon();
   }, []);
 
-  const getTypeColor = (type) => {
-    switch (type) {
-      case "Fire":
-        return "red";
-      case "Water":
-        return "blue";
-      case "Grass":
-        return "green";
-      case "Bug":
-        return "violet";
-      case "Flying":
-        return "lightblue";
-      case "Poison":
-        return "darkviolet";
-      case "Electric":
-        return "yellow";
-      case "Ground":
-        return "brown";
-      case "Fairy":
-        return "pink";
-      case "Fighting":
-        return "grey";
-      case "Psychic":
-        return "lightblue";
-      case "Bug":
-        return "violet";
-      case "Rock":
-        return "darkbrown";
-      case "Steel":
-        return "grey";
-      case "Ice":
-        return "iceblue";
-      case "Ghost":
-        return "violet";
-      default:
-        return "lightgray";
-    }
+  const handleClick = (poke) => {
+    setSelectedPokemon(poke);
+    handleOpen();
   };
 
   return (
     <>
+      <PokemonModal
+        open={open}
+        handleClose={handleClose}
+        selectedPokemon={selectedPokemon}
+      />
       <section className="pokedex-grid">
         {pokemon.length > 0 ? (
           pokemon.map((poke) => (
             <div
               key={poke.id}
               className="poke-card"
-            //   style={{ backgroundColor: getTypeColor(poke.type[0]) }}
-            style={{
-                background: `linear-gradient(to right, ${getTypeColor(poke.type[0])} 50%, ${getTypeColor(poke.type[1] || poke.type[0])} 50%)`
+              onClick={() => handleClick(poke)}
+              style={{
+                background: `linear-gradient(to right, ${getTypeColor(
+                  poke.type[0]
+                )} 50%, ${getTypeColor(poke.type[1] || poke.type[0])} 50%)`,
               }}
             >
               <img

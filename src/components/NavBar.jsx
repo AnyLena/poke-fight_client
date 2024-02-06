@@ -12,8 +12,14 @@ const NavBar = () => {
 
   const navigate = useNavigate();
 
-  const navStyle = { backgroundColor: "#333" };
-
+  const navStyle = {
+    backgroundColor: "#333",
+    position: "sticky",
+    bottom: 0,
+    width: "100%",
+    zIndex: 1000,
+  };
+  
   return (
     <BottomNavigation
       style={navStyle}
