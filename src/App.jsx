@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./views/Home";
 import Fight from "./views/Fight";
 import Ranking from "./views/Ranking";
+import "./App.css";
 
 function App() {
   return (
