@@ -41,6 +41,7 @@ const Main = () => {
   };
 
   useEffect(() => {
+    console.log("Fetching pokemons from useEffect");
     fetchPokemon();
   }, []);
 
@@ -49,6 +50,13 @@ const Main = () => {
     handleOpen();
   };
 
+  const loadMorePokes = () => {
+    if (!loading) {
+      fetchPokemon();
+      console.log("Loading more pokemons from InfiniteScroll");
+    }
+  }
+
   return (
     <>
       <PokemonModal
@@ -56,9 +64,10 @@ const Main = () => {
         handleClose={handleClose}
         selectedPokemon={selectedPokemon}
       />
+
       <InfiniteScroll
         pageStart={0}
-        loadMore={() => fetchPokemon()}
+        loadMore={loadMorePokes}
         hasMore={offset <= 950}
         loader={
           <div className="loader" key={0}>
