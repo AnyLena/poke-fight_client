@@ -3,6 +3,7 @@ import "../styles/Main.css";
 import PokemonModal from "./PokemonModal";
 import { getTypeColor } from "../utils/strings";
 import "../styles/Pokeball.css";
+import { SERVER } from '../constants/server'
 
 const Main = () => {
   const [pokemon, setPokemon] = useState([]);
@@ -15,7 +16,7 @@ const Main = () => {
 
   const getPokemon = async () => {
     try {
-      const res = await fetch("http://localhost:3000/pokemon/");
+      const res = await fetch(SERVER);
       const data = await res.json();
       return data;
     } catch (error) {
