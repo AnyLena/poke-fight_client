@@ -9,7 +9,12 @@ const Transition = forwardRef((props, ref) => (
 
 function PokemonModal({ open, handleClose, selectedPokemon }) {
   return (
-    <Dialog open={open} onClose={handleClose} TransitionComponent={Transition}>
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      TransitionComponent={Transition}
+      sx={{ "& .MuiPaper-root": { borderRadius: "30px" } }}
+    >
       <DialogContent sx={{ p: 0 }}>
         {selectedPokemon && (
           <div
@@ -38,7 +43,13 @@ function PokemonModal({ open, handleClose, selectedPokemon }) {
                 {selectedPokemon.name.charAt(0).toUpperCase() +
                   selectedPokemon.name.slice(1)}
               </h2>
-                <p className="stat">{selectedPokemon.type.map((type) => (<span style={{ background: getTypeColor(type) }}>{type.toUpperCase()}</span>))}</p>
+              <p className="stat">
+                {selectedPokemon.type.map((type) => (
+                  <span style={{ background: getTypeColor(type) }}>
+                    {type.toUpperCase()}
+                  </span>
+                ))}
+              </p>
               <div className="modal-stats">
                 <p className="text">HP</p>
                 <p className="stat">{selectedPokemon.base.hp}</p>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "../styles/Battle.css";
 
 const Battle = () => {
   const [myPokemon, setMyPokemon] = useState(null);
@@ -42,13 +43,6 @@ const Battle = () => {
   }, []);
 
   useEffect(() => {
-    if (myPokemon && opponentPokemon) {
-      console.log("My Pokemon", myPokemon);
-      console.log("Opponent Pokemon", opponentPokemon);
-    }
-  }, [myPokemon, opponentPokemon]);
-
-  useEffect(() => {
     if (myPokemon && myPokemon.stats[0].base_stat === 0) {
       alert("You lose!");
       return;
@@ -58,48 +52,38 @@ const Battle = () => {
     }
   }, [myPokemon, opponentPokemon]);
 
+  const calculateDamage = (attacker, defender) => {
+    let damage = Math.floor(
+      (attacker.stats[1].base_stat - defender.stats[2].base_stat) /
+        (Math.random() * 2 + 1)
+    );
+    damage <= 5 ? (damage = Math.floor(Math.random() * 4) + 1) : damage;
+    return damage;
+  };
+
+  const updatePokemonStats = (pokemon, damage) => ({
+    ...pokemon,
+    stats: pokemon.stats.map((stat) =>
+      stat.stat.name === "hp"
+        ? { ...stat, base_stat: Math.max(0, stat.base_stat - damage) }
+        : stat
+    ),
+  });
+
   const startFight = () => {
     // My turn
-    let myDamage =
-      (myPokemon.stats[1].base_stat - opponentPokemon.stats[2].base_stat) / 2;
-    if (myDamage < 0) {
-      myDamage = Math.floor(Math.random() * 10) + 1;
-    }
-
-    console.log("My Attack", myPokemon.stats[1].base_stat);
-    console.log("Opponent Defense", opponentPokemon.stats[2].base_stat);
+    const myDamage = calculateDamage(myPokemon, opponentPokemon);
     console.log("My Damage", myDamage);
-
-    setOpponentPokemon((prevState) => ({
-      ...prevState,
-      stats: prevState.stats.map((stat) =>
-        stat.stat.name === "hp"
-          ? { ...stat, base_stat: Math.max(0, stat.base_stat - myDamage) }
-          : stat
-      ),
-    }));
+    setOpponentPokemon((prevState) => updatePokemonStats(prevState, myDamage));
 
     // Opponent's turn
-    let opponentDamage =
-      (opponentPokemon.stats[1].base_stat - myPokemon.stats[2].base_stat) / 2;
-    if (opponentDamage < 0) {
-      opponentDamage = Math.floor(Math.random() * 10) + 1;
-    }
-    console.log("Opponent Attack", opponentPokemon.stats[1].base_stat);
-    console.log("My Defense", myPokemon.stats[2].base_stat);
+    const opponentDamage = calculateDamage(opponentPokemon, myPokemon);
     console.log("Opponent Damage", opponentDamage);
-    setMyPokemon((prevState) => ({
-      ...prevState,
-      stats: prevState.stats.map((stat) =>
-        stat.stat.name === "hp"
-          ? { ...stat, base_stat: Math.max(0, stat.base_stat - opponentDamage) }
-          : stat
-      ),
-    }));
+    setMyPokemon((prevState) => updatePokemonStats(prevState, opponentDamage));
   };
 
   return (
-    <>
+    <div className="battle">
       <h1>Battle</h1>
       {loading && <div className="pokeball"></div>}
       {myPokemon && opponentPokemon && (
@@ -111,7 +95,10 @@ const Battle = () => {
           <h3>{myPokemon.stats[2].base_stat} Defense</h3>
           <img
             style={{ width: "100px" }}
-            src={myPokemon.sprites.front_default}
+            src={
+              myPokemon.sprites.other.showdown.back_default ||
+              myPokemon.sprites.front_default
+            }
             alt={myPokemon.name}
           />
           <h2>Opponent Pokemon</h2>
@@ -121,13 +108,18 @@ const Battle = () => {
           <h3>{opponentPokemon.stats[2].base_stat} Defense</h3>
           <img
             style={{ width: "100px" }}
-            src={opponentPokemon.sprites.front_default}
+            src={
+              opponentPokemon.sprites.other.showdown.front_default ||
+              opponentPokemon.sprites.front_default
+            }
             alt={opponentPokemon.name}
           />
           <button onClick={startFight}>Fight</button>
+          <button onClick={() => getMyPokemon()}>New Pokemon</button>
+          <button onClick={() => getOpponentPokemon()}>New Opponent</button>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
