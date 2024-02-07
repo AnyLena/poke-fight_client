@@ -1,4 +1,3 @@
-import NavBar from "../components/NavBar";
 import Battle from "../components/Battle";
 
 const Fight = () => {

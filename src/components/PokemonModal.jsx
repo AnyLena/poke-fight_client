@@ -23,18 +23,18 @@ function PokemonModal({ open, handleClose, selectedPokemon }) {
             }}
           >
             <img
-              src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fpluspng.com%2Fimg-png%2Fpokemon-logo-png-pokemon-logo-text-png-1428-1390.png&f=1&nofb=1&ipt=a6000bf82b5cc75d945e6609d6d6d22cf695d813fee1fab31ffb2395aeb6d40a&ipo=images"
-              alt={selectedPokemon.name.english}
+              src={selectedPokemon.sprites.front_default}
+              alt={selectedPokemon.name}
             />
-            <h2>{selectedPokemon.name.english}</h2>
+            <h2>{selectedPokemon.name}</h2>
             <p>No. {selectedPokemon.id}</p>
             <p>Type: {selectedPokemon.type.map((type) => type + " ")}</p>
-            <p>HP: {selectedPokemon.base.HP}</p>
-            <p>Attack: {selectedPokemon.base.Attack}</p>
-            <p>Defense: {selectedPokemon.base.Defense}</p>
-            <p>Sp. Attack: {selectedPokemon.base["Sp. Attack"]}</p>
-            <p>Sp. Defense: {selectedPokemon.base["Sp. Defense"]}</p>
-            <p>Speed: {selectedPokemon.base.Speed}</p>
+            <p>HP: {selectedPokemon.base.hp}</p>
+            <p>Attack: {selectedPokemon.base.attack}</p>
+            <p>Defense: {selectedPokemon.base.defense}</p>
+            <p>Sp. Attack: {selectedPokemon.base.sp_attack}</p>
+            <p>Sp. Defense: {selectedPokemon.base.sp_defense}</p>
+            <p>Speed: {selectedPokemon.base.speed}</p>
           </div>
         )}
       </DialogContent>

@@ -1,36 +1,34 @@
 export const getTypeColor = (type) => {
-  switch (type) {
-    case "Fire":
+  switch (type.toLowerCase()) {
+    case "fire":
       return "red";
-    case "Water":
+    case "water":
       return "blue";
-    case "Grass":
+    case "grass":
       return "green";
-    case "Bug":
+    case "bug":
       return "violet";
-    case "Flying":
+    case "flying":
       return "lightblue";
-    case "Poison":
+    case "poison":
       return "darkviolet";
-    case "Electric":
+    case "electric":
       return "yellow";
-    case "Ground":
+    case "ground":
       return "brown";
-    case "Fairy":
+    case "fairy":
       return "pink";
-    case "Fighting":
+    case "fighting":
       return "grey";
-    case "Psychic":
+    case "psychic":
       return "lightblue";
-    case "Bug":
-      return "violet";
-    case "Rock":
+    case "rock":
       return "darkbrown";
-    case "Steel":
+    case "steel":
       return "grey";
-    case "Ice":
+    case "ice":
       return "iceblue";
-    case "Ghost":
+    case "ghost":
       return "violet";
     default:
       return "lightgray";

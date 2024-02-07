@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "../styles/Main.css";
 import PokemonModal from "./PokemonModal";
 import { getTypeColor } from "../utils/strings";
+import "../styles/Pokeball.css";
 
 const Main = () => {
   const [pokemon, setPokemon] = useState([]);
@@ -50,6 +51,7 @@ const Main = () => {
         handleClose={handleClose}
         selectedPokemon={selectedPokemon}
       />
+      { loading && <div className="pokeball"></div>}
       <section className="pokedex-grid">
         {pokemon.length > 0 ? (
           pokemon.map((poke) => (
@@ -64,10 +66,10 @@ const Main = () => {
               }}
             >
               <img
-                src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fpluspng.com%2Fimg-png%2Fpokemon-logo-png-pokemon-logo-text-png-1428-1390.png&f=1&nofb=1&ipt=a6000bf82b5cc75d945e6609d6d6d22cf695d813fee1fab31ffb2395aeb6d40a&ipo=images"
-                alt={poke.name.english}
+                src={poke.sprites.front_default}
+                alt={poke.name}
               />
-              <h2> {poke.name.english}</h2>
+              <h2> {poke.name}</h2>
               <p>No. {poke.id}</p>
               <p>Type: {poke.type.map((type) => type + " ")}</p>
             </div>
