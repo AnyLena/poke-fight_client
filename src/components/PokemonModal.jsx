@@ -22,19 +22,38 @@ function PokemonModal({ open, handleClose, selectedPokemon }) {
               )} 50%)`,
             }}
           >
-            <img
-              src={selectedPokemon.sprites.front_default}
-              alt={selectedPokemon.name}
-            />
-            <p className="dex-number">#{selectedPokemon.id}</p>
-            <h2>{selectedPokemon.name.charAt(0).toUpperCase() + selectedPokemon.name.slice(1)}</h2>
-            <p>Type: {selectedPokemon.type.map((type) => type + " ")}</p>
-            <p>HP: {selectedPokemon.base.hp}</p>
-            <p>Attack: {selectedPokemon.base.attack}</p>
-            <p>Defense: {selectedPokemon.base.defense}</p>
-            <p>Sp. Attack: {selectedPokemon.base.sp_attack}</p>
-            <p>Sp. Defense: {selectedPokemon.base.sp_defense}</p>
-            <p>Speed: {selectedPokemon.base.speed}</p>
+            <div className="modal-img-container">
+              <div className="modal-circle"></div>
+              <img
+                src={
+                  selectedPokemon.sprites.other["official-artwork"]
+                    .front_default
+                }
+                alt={selectedPokemon.name}
+              />
+            </div>
+            <div className="modal-info">
+              <p className="dex-number">#{selectedPokemon.id}</p>
+              <h2>
+                {selectedPokemon.name.charAt(0).toUpperCase() +
+                  selectedPokemon.name.slice(1)}
+              </h2>
+                <p className="stat">{selectedPokemon.type.map((type) => (<span style={{ background: getTypeColor(type) }}>{type.toUpperCase()}</span>))}</p>
+              <div className="modal-stats">
+                <p className="text">HP</p>
+                <p className="stat">{selectedPokemon.base.hp}</p>
+                <p className="text">Attack</p>
+                <p className="stat">{selectedPokemon.base.attack}</p>
+                <p className="text">Defense</p>
+                <p className="stat">{selectedPokemon.base.defense}</p>
+                <p className="text">Sp. Attack</p>
+                <p className="stat">{selectedPokemon.base.sp_attack}</p>
+                <p className="text">Sp. Defense</p>
+                <p className="stat">{selectedPokemon.base.sp_defense}</p>
+                <p className="text">Speed</p>
+                <p className="stat">{selectedPokemon.base.speed}</p>
+              </div>
+            </div>
           </div>
         )}
       </DialogContent>
