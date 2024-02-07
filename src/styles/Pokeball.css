@@ -14,7 +14,7 @@
   border-radius: 50%;
   border: 8px solid black;
   box-shadow: inset -16px -8px 0 0 rgba(0, 0, 0, 0.2);
-  animation: shake 0.75s cubic-bezier(0.36, 0.07, 0.19, 0.97) 0s 4;
+  animation: shake 0.75s cubic-bezier(0.36, 0.07, 0.19, 0.97) 0s infinite;
 }
 /* Animation */
 @keyframes shake {

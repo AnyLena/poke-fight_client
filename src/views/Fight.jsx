@@ -3,7 +3,6 @@ import Battle from "../components/Battle";
 const Fight = () => {
   return (
     <>
-      <h1>Fight</h1>
       <Battle />
     </>
   );
