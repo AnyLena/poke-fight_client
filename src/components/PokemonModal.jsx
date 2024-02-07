@@ -47,9 +47,9 @@ function PokemonModal({ open, handleClose, selectedPokemon }) {
                 <p className="text">Defense</p>
                 <p className="stat">{selectedPokemon.base.defense}</p>
                 <p className="text">Sp. Attack</p>
-                <p className="stat">{selectedPokemon.base.sp_attack}</p>
+                <p className="stat">{selectedPokemon.base.special_attack}</p>
                 <p className="text">Sp. Defense</p>
-                <p className="stat">{selectedPokemon.base.sp_defense}</p>
+                <p className="stat">{selectedPokemon.base.special_defense}</p>
                 <p className="text">Speed</p>
                 <p className="stat">{selectedPokemon.base.speed}</p>
               </div>
