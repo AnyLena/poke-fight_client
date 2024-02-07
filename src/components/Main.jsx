@@ -67,7 +67,7 @@ const Main = () => {
             >
               <div className="dex-img-container">
               <div className="dex-circle"></div><img
-                src={poke.sprites.front_default}
+                src={poke.sprites.other['official-artwork'].front_default}
                 alt={poke.name}
               /></div>
               <p className="dex-number">#{poke.id}</p>
