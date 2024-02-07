@@ -1,0 +1,12 @@
+.hidden {
+    visibility: hidden;
+}
+.pkmn-logo {
+    max-width: 480px;
+    margin: auto;
+    padding: 20px;
+}
+
+body {
+    background-color: #d5d4da;
+}

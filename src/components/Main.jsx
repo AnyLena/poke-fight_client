@@ -65,12 +65,13 @@ const Main = () => {
                 )} 50%, ${getTypeColor(poke.type[1] || poke.type[0])} 50%)`,
               }}
             >
-              <img
-                src={poke.sprites.front_default}
+              <div className="dex-img-container">
+              <div className="dex-circle"></div><img
+                src={poke.sprites.other['official-artwork'].front_default}
                 alt={poke.name}
-              />
-              <h2> {poke.name}</h2>
-              <p>No. {poke.id}</p>
+              /></div>
+              <p className="dex-number">#{poke.id}</p>
+              <h2> {poke.name.charAt(0).toUpperCase() + poke.name.slice(1)}</h2>
               <p>Type: {poke.type.map((type) => type + " ")}</p>
             </div>
           ))

@@ -1,36 +1,42 @@
 export const getTypeColor = (type) => {
   switch (type.toLowerCase()) {
     case "fire":
-      return "red";
+      return "#f08030";
     case "water":
-      return "blue";
+      return "#6890f0";
     case "grass":
-      return "green";
+      return "#78c850";
     case "bug":
-      return "violet";
+      return "#a8b820";
     case "flying":
-      return "lightblue";
+      return "#a890f0";
     case "poison":
-      return "darkviolet";
+      return "#a040a0";
     case "electric":
-      return "yellow";
+      return "#f8d030";
     case "ground":
-      return "brown";
+      return "#e0c068";
     case "fairy":
-      return "pink";
+      return "#ee99ac";
     case "fighting":
-      return "grey";
+      return "#c03028";
     case "psychic":
-      return "lightblue";
+      return "#f85888";
     case "rock":
-      return "darkbrown";
+      return "#b8a038";
     case "steel":
-      return "grey";
+      return "#b8b8d0";
     case "ice":
-      return "iceblue";
+      return "#98d8d8";
     case "ghost":
-      return "violet";
+      return "#705898";
+    case "dragon":
+      return "#7038f8";
+    case "dark":
+      return "#705848";
+    case "stellar":
+      return "#7cc7b2";
     default:
-      return "lightgray";
+      return "#a8a878";
   }
 };

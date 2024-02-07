@@ -26,8 +26,8 @@ function PokemonModal({ open, handleClose, selectedPokemon }) {
               src={selectedPokemon.sprites.front_default}
               alt={selectedPokemon.name}
             />
-            <h2>{selectedPokemon.name}</h2>
-            <p>No. {selectedPokemon.id}</p>
+            <p className="dex-number">#{selectedPokemon.id}</p>
+            <h2>{selectedPokemon.name.charAt(0).toUpperCase() + selectedPokemon.name.slice(1)}</h2>
             <p>Type: {selectedPokemon.type.map((type) => type + " ")}</p>
             <p>HP: {selectedPokemon.base.hp}</p>
             <p>Attack: {selectedPokemon.base.attack}</p>

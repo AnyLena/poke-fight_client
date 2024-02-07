@@ -7,21 +7,46 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 30px;
-    margin: 30px;
+    margin:60px;
 }
 
 .poke-card {
     background-color: lightgrey;
-    border-radius: 3px;
-    padding: 30px;
+    border-radius: 30px;
+    padding-bottom: 20px;
     cursor: pointer;
+    box-shadow: rgba(100, 100, 111, .4) 0px 7px 29px 0px;
+}
+
+.dex-img-container {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.dex-circle {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    margin: auto;
+    grid-area: 1/1/2/2;
+}
+
+.poke-card img {
+    max-width: 200px;
+    max-height: 200px;
+    margin: auto;
+    margin-top: 20px;
+    grid-area: 1/1/2/2;
+}
+
+.dex-number {
+    background-color: rgba(0, 0, 0, 0.2);
+    display: inline;
+    padding: 5px 10px;
+    border-radius: 12px;
 }
 
 .poke-card h2 {
     margin: 10px 0;
 }
-
-.poke-card img {
-    margin: auto;
-}
-
