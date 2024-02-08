@@ -1,22 +1,24 @@
 import { useState, useEffect } from "react";
 import "../styles/Battle.css";
+import "../styles/Pokeball.css";
 
 const Battle = () => {
   const [myPokemon, setMyPokemon] = useState(null);
   const [opponentPokemon, setOpponentPokemon] = useState(null);
+  const [myHp, setMyHp] = useState(null);
+  const [opponentHp, setOpponentHp] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const randomNumber = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
+  const randomNumber = (max) => Math.floor(Math.random() * max) + 1;
 
   const getMyPokemon = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/pokemon/${randomNumber(1, 50)}`
+        `http://localhost:3000/pokemon/${randomNumber(1000)}`
       );
       const data = await res.json();
       setMyPokemon(data);
+      setMyHp(data.stats[0].base_stat);
       console.log("MyPokemon", data);
     } catch (error) {
       console.log(error);
@@ -26,10 +28,11 @@ const Battle = () => {
   const getOpponentPokemon = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/pokemon/${randomNumber(1, 50)}`
+        `http://localhost:3000/pokemon/${randomNumber(1000)}`
       );
       const data = await res.json();
       setOpponentPokemon(data);
+      setOpponentHp(data.stats[0].base_stat);
       console.log("Opponent Pokemon", data);
     } catch (error) {
       console.log(error);
@@ -43,14 +46,14 @@ const Battle = () => {
   }, []);
 
   useEffect(() => {
-    if (myPokemon && myPokemon.stats[0].base_stat === 0) {
-      alert("You lose!");
-      return;
-    } else if (opponentPokemon && opponentPokemon.stats[0].base_stat === 0) {
-      alert("You win!");
-      return;
+    if (myHp !== null && myHp <= 0) {
+      alert("You lose");
+      getMyPokemon();
+    } else if (opponentHp !== null && opponentHp <= 0) {
+      alert("You win");
+      getOpponentPokemon();
     }
-  }, [myPokemon, opponentPokemon]);
+  }, [myHp]);
 
   const calculateDamage = (attacker, defender) => {
     let damage = Math.floor(
@@ -61,25 +64,16 @@ const Battle = () => {
     return damage;
   };
 
-  const updatePokemonStats = (pokemon, damage) => ({
-    ...pokemon,
-    stats: pokemon.stats.map((stat) =>
-      stat.stat.name === "hp"
-        ? { ...stat, base_stat: Math.max(0, stat.base_stat - damage) }
-        : stat
-    ),
-  });
-
   const startFight = () => {
     // My turn
     const myDamage = calculateDamage(myPokemon, opponentPokemon);
     console.log("My Damage", myDamage);
-    setOpponentPokemon((prevState) => updatePokemonStats(prevState, myDamage));
+    setMyHp((prevState) => prevState - myDamage);
 
     // Opponent's turn
     const opponentDamage = calculateDamage(opponentPokemon, myPokemon);
     console.log("Opponent Damage", opponentDamage);
-    setMyPokemon((prevState) => updatePokemonStats(prevState, opponentDamage));
+    setOpponentHp((prevState) => prevState - opponentDamage);
   };
 
   return (
@@ -90,7 +84,7 @@ const Battle = () => {
         <div>
           <h2>My Pokemon</h2>
           <h3>{myPokemon.name}</h3>
-          <h3>{myPokemon.stats[0].base_stat} HP</h3>
+          <h3>{myHp} HP</h3>
           <h3>{myPokemon.stats[1].base_stat} Attack</h3>
           <h3>{myPokemon.stats[2].base_stat} Defense</h3>
           <img
@@ -103,7 +97,7 @@ const Battle = () => {
           />
           <h2>Opponent Pokemon</h2>
           <h3>{opponentPokemon.name}</h3>
-          <h3>{opponentPokemon.stats[0].base_stat} HP</h3>
+          <h3>{opponentHp} HP</h3>
           <h3>{opponentPokemon.stats[1].base_stat} Attack</h3>
           <h3>{opponentPokemon.stats[2].base_stat} Defense</h3>
           <img
