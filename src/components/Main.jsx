@@ -12,6 +12,7 @@ const Main = () => {
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [open, setOpen] = useState(false);
   const [offset, setOffset] = useState(0);
+  const [lang, setLang] = useState("en");
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -55,7 +56,7 @@ const Main = () => {
       fetchPokemon();
       console.log("Loading more pokemons from InfiniteScroll");
     }
-  }
+  };
 
   return (
     <>
@@ -92,13 +93,19 @@ const Main = () => {
                   <div className="dex-circle"></div>
                   <img
                     src={poke.sprites.other["official-artwork"].front_default}
-                    alt={poke.name}
+                    alt={poke.name.en}
                   />
                 </div>
                 <p className="dex-number">#{poke.id}</p>
                 <h2>
-                  {" "}
-                  {poke.name.charAt(0).toUpperCase() + poke.name.slice(1)}
+                  {lang === "de"
+                    ? poke.name.other[5].name.charAt(0).toUpperCase() +
+                      poke.name.other[5].name.slice(1)
+                    : lang === "jp"
+                    ? poke.name.other[0].name.charAt(0).toUpperCase() +
+                      poke.name.other[0].name.slice(1)
+                    : poke.name.en.charAt(0).toUpperCase() +
+                      poke.name.en.slice(1)}
                 </h2>
               </div>
             ))
