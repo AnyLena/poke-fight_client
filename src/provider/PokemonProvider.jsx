@@ -29,8 +29,16 @@ export const PokemonProvider = ({ children }) => {
 
   // We ask the user for user and passwod
   // The server checks if the user exists in the database.
-  // MongoDB query: db.users.find({username: "Moustafa", password: "123"})
+  // MongoDB query: db.users.findOne({username: "Moustafa", password: "123"})
   // If the user exists, it sends back the user object
+
+  // To add a Pokemon to the user's pokemons array:
+  // try {
+  //   const data = await User.updateOne(
+  //     { _id: userId },
+  //     { $push: { pokemons: numberToAdd } }
+  //   );
+  // }
 
   return (
     <PokemonContext.Provider value={value}>{children}</PokemonContext.Provider>

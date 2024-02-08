@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/Battle.css";
+import "../styles/Pokeball.css";
 
 const Battle = () => {
   const [myPokemon, setMyPokemon] = useState(null);
@@ -45,10 +46,10 @@ const Battle = () => {
   }, []);
 
   useEffect(() => {
-    if (myHp <= 0) {
+    if (myHp !== null && myHp <= 0) {
       alert("You lose");
       getMyPokemon();
-    } else if (opponentHp <= 0) {
+    } else if (opponentHp !== null && opponentHp <= 0) {
       alert("You win");
       getOpponentPokemon();
     }
