@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "../styles/Main.css";
 import PokemonModal from "./PokemonModal";
 import { getTypeColor } from "../utils/strings";
 import "../styles/Pokeball.css";
 import { SERVER } from "../constants/server";
 import InfiniteScroll from "react-infinite-scroller";
+// import { PokemonContext } from '../provider/PokemonProvider';
+
 
 const Main = () => {
   const [pokemon, setPokemon] = useState([]);
@@ -13,6 +15,8 @@ const Main = () => {
   const [open, setOpen] = useState(false);
   const [offset, setOffset] = useState(0);
   const [lang, setLang] = useState("en");
+
+  // const { user, setUser } = useContext(PokemonContext);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
