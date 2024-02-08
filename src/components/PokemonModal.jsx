@@ -40,8 +40,8 @@ function PokemonModal({ open, handleClose, selectedPokemon }) {
             <div className="modal-info">
               <p className="dex-number">#{selectedPokemon.id}</p>
               <h2>
-                {selectedPokemon.name.charAt(0).toUpperCase() +
-                  selectedPokemon.name.slice(1)}
+                {selectedPokemon.name.en.charAt(0).toUpperCase() +
+                  selectedPokemon.name.en.slice(1)}
               </h2>
               <p className="stat">
                 {selectedPokemon.type.map((type) => (
