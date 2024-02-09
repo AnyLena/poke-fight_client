@@ -1,13 +1,41 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import { Dialog, DialogContent, Grow } from "@mui/material";
 import { getTypeColor } from "../utils/strings";
 import "../styles/PokemonModal.css";
+import { MdOutlineArrowCircleLeft } from "react-icons/md";
+import { MdOutlineArrowCircleRight } from "react-icons/md";
 
 const Transition = forwardRef((props, ref) => (
   <Grow direction="down" ref={ref} {...props} />
 ));
 
 function PokemonModal({ open, handleClose, selectedPokemon }) {
+  const [imageIndex, setImageIndex] = useState(0);
+
+  const images = selectedPokemon
+    ? [
+        selectedPokemon.sprites.other["official-artwork"].front_default,
+        selectedPokemon.sprites.front_default,
+        selectedPokemon.sprites.other.dream_world.front_default,
+        selectedPokemon.sprites.other.home.front_default,
+        selectedPokemon.sprites.other.showdown.front_default,
+      ]
+    : [];
+
+  const handleNext = () => {
+    setImageIndex((index) => {
+      if (index === images.length - 1) return 0;
+      return index + 1;
+    });
+  };
+
+  const handlePrevious = () => {
+    setImageIndex((index) => {
+      if (index === 0) return images.length - 1;
+      return index - 1;
+    });
+  };
+
   return (
     <Dialog
       open={open}
@@ -29,14 +57,23 @@ function PokemonModal({ open, handleClose, selectedPokemon }) {
           >
             <div className="modal-img-container">
               <div className="modal-circle"></div>
-              <img
-                src={
-                  selectedPokemon.sprites.other["official-artwork"]
-                    .front_default
-                }
-                alt={selectedPokemon.name}
-              />
+              <div className="images">
+                {images.map((image) => (
+                  <img
+                    style={{ transform: `translateX(${-100 * imageIndex}%)` }}
+                    src={image}
+                    key={image}
+                  />
+                ))}
+              </div>
+              <button className="prev-btn" onClick={handlePrevious}>
+                <MdOutlineArrowCircleLeft />
+              </button>
+              <button className="next-btn" onClick={handleNext}>
+                <MdOutlineArrowCircleRight />
+              </button>
             </div>
+
             <div className="modal-info">
               <p className="dex-number">#{selectedPokemon.id}</p>
               <h2>
@@ -45,7 +82,7 @@ function PokemonModal({ open, handleClose, selectedPokemon }) {
               </h2>
               <p className="stat">
                 {selectedPokemon.type.map((type) => (
-                  <span style={{ background: getTypeColor(type) }}>
+                  <span key={type} style={{ background: getTypeColor(type) }}>
                     {type.toUpperCase()}
                   </span>
                 ))}
