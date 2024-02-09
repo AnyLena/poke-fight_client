@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { SERVER } from "../constants/server";
 import "../styles/Battle.css";
 import "../styles/Pokeball.css";
 
@@ -14,7 +15,7 @@ const Battle = () => {
   const getMyPokemon = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/pokemon/${randomNumber(1000)}`
+        `${SERVER}/pokemon/${randomNumber(1000)}`
       );
       const data = await res.json();
       setMyPokemon(data);
@@ -28,7 +29,7 @@ const Battle = () => {
   const getOpponentPokemon = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/pokemon/${randomNumber(1000)}`
+        `${SERVER}/pokemon/${randomNumber(1000)}`
       );
       const data = await res.json();
       setOpponentPokemon(data);

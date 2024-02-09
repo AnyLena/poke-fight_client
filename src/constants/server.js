@@ -1,1 +1,1 @@
-export const SERVER = "http://localhost:3000/pokemon";
+export const SERVER = "http://localhost:3000";
