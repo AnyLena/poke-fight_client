@@ -1,3 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+.display-none {
+    display: none;
+  }
+
 .battle {
-    height: 100dvh;
+  height: 100dvh;
+  padding: 10px;
+
+  h1,
+  h2,
+  h3,
+  p,
+  button {
+    font-family: "Press Start 2P", system-ui;
+    color: #47453c;
+  }
+
+  h2 {
+    text-align: left;
+    text-transform: uppercase;
+    margin: 7px;
+    text-shadow: 2px 2px 1px #cecbab;
+    font-size: 20px;
+  }
+
+  p.hp {
+    text-align: right;
+    margin-top: 5px;
+  }
+  
+  
+
+  .stat-box {
+    justify-self: start;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f4d5;
+    border-radius: 25px 5px 25px 5px;
+    border: 4px solid #464d4e;
+    padding: 5px;
+    width: 350px;
+    box-shadow: 7px 7px 2px #4e6361;
+    z-index: 3;
+  }
+
+  .health-container {
+    display: grid;
+    grid-template-columns: 40px 200px;
+    background-color: #464d4e;
+    width: 252px;
+    padding: 3px;
+    height: 20px;
+    border-radius: 50px;
+    align-self: flex-end;
+  }
+  .health-hp {
+    grid-area: 1/1/2/2;
+    color: #ee8e6c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+  }
+  .health-back {
+    grid-area: 1/2/2/3;
+    background-color: #464d4e;
+    width: 206px;
+    border-radius: 50px;
+    border: 3px solid white;
+    height: 13.5px !important;
+  }
+
+  .health-bar {
+    grid-area: 1/2/2/3;
+    background-color: #66e89a;
+    height: 9px;
+    width: 100%;
+    border-radius: 50px;
+    margin: 2px 0px 3px 3px;
+  }
+
+  .opponent,
+  .trainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 850px;
+    margin: auto;
+  }
+
+  .circle {
+    height: 120px;
+    width: 350px;
+    background-color: #b4b593;
+    border: 10px solid #c8cab9;
+    border-radius: 50%;
+    margin-top: auto;
+    z-index: 0;
+    margin-bottom: -20px;
+  }
+
+  img {
+    margin: 40px 70px;
+    max-height: 150px;
+    max-width: 150px;
+    z-index: 2;
+  }
+
+  .opponent img {
+    grid-area: 1/2/2/3;
+  }
+
+  .opponent .circle {
+    grid-area: 1/2/2/3;
+  }
+
+  .trainer img {
+    grid-area: 1/1/2/2;
+  }
+
+  .trainer .circle {
+    grid-area: 1/1/2/2;
+  }
+
+  .text-box {
+    position: relative;
+    background-color: #679e9b;
+    border-radius: 20px;
+    border: 10px solid #cc4527;
+    z-index: 10;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 850px;
+    margin: auto;
+  }
+  .text-box p {
+    color: #eaf5fa;
+    text-shadow: 2px 2px 1px #4e5461;
+    font-size: 20px;
+  }
+
+  button {
+    background-color: #679e9b;
+    border-radius: 5px;
+    border: none;
+    z-index: 10;
+    margin: 10px;
+    padding: 10px 15px;
+    color: #eaf5fa;
+    text-shadow: 2px 2px 1px #4e5461;
+  }
+
+  button:hover {
+    color: #4e5461;
+    text-shadow: 2px 2px 1px #eaf5fa;
+}
 }
