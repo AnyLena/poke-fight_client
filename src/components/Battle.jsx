@@ -9,6 +9,9 @@ const Battle = () => {
   const [myHp, setMyHp] = useState(null);
   const [opponentHp, setOpponentHp] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [fightText, setFightText] = useState("");
+  const [opponentHpRate, setOpponentHpRate] = useState(100);
+  const [trainerHpRate, setTrainerHpRate] = useState(100);
 
   const randomNumber = (max) => Math.floor(Math.random() * max) + 1;
 
@@ -29,7 +32,7 @@ const Battle = () => {
   const getOpponentPokemon = async () => {
     try {
       const res = await fetch(
-        `${SERVER}/pokemon/${randomNumber(1000)}`
+        `${SERVER}/pokemon/${randomNumber(999)}`
       );
       const data = await res.json();
       setOpponentPokemon(data);
@@ -48,13 +51,27 @@ const Battle = () => {
 
   useEffect(() => {
     if (myHp !== null && myHp <= 0) {
-      alert("You lose");
-      getMyPokemon();
+      setFightText("FOE defeated TRAINER. TRAINER faints");
+      setTimeout(() => {
+        getMyPokemon();
+        getOpponentPokemon();
+      }, 4000);
     } else if (opponentHp !== null && opponentHp <= 0) {
-      alert("You win");
-      getOpponentPokemon();
+      setFightText("TRAINER defeats FOE. TRAINER wins!");
+      setTimeout(() => {
+        getOpponentPokemon();
+      }, 4000);
     }
   }, [myHp]);
+
+  useEffect(() => {
+    let text;
+    opponentPokemon
+      ? (text = `A wild ${opponentPokemon.name.toUpperCase()} appeared!`)
+      : null;
+    setFightText(text);
+    setOpponentHpRate(100);
+  }, [opponentPokemon]);
 
   const calculateDamage = (attacker, defender) => {
     let damage = Math.floor(
@@ -69,46 +86,107 @@ const Battle = () => {
     // My turn
     const myDamage = calculateDamage(myPokemon, opponentPokemon);
     console.log("My Damage", myDamage);
-    setMyHp((prevState) => prevState - myDamage);
+    let trainerText = "You inflict " + myDamage + " DAMAGE";
+    setFightText(trainerText);
+    opponentHp - myDamage <= 0
+      ? setOpponentHp(0)
+      : setOpponentHp((prevState) => prevState - myDamage);
+    setOpponentHpRate(
+      (prev) => (opponentHp / opponentPokemon.stats[0].base_stat) * 100
+    );
 
     // Opponent's turn
-    const opponentDamage = calculateDamage(opponentPokemon, myPokemon);
-    console.log("Opponent Damage", opponentDamage);
-    setOpponentHp((prevState) => prevState - opponentDamage);
+    setTimeout(() => {
+      const opponentDamage = calculateDamage(opponentPokemon, myPokemon);
+      console.log("Opponent Damage", opponentDamage);
+      let opponentText = `Foe ${opponentPokemon.name.toUpperCase()} inflicts ${opponentDamage} DAMAGE`;
+      setFightText(opponentText);
+      myHp - opponentDamage <= 0
+        ? setMyHp(0)
+        : setMyHp((prevState) => prevState - opponentDamage);
+      setTrainerHpRate((prev) => (myHp / myPokemon.stats[0].base_stat) * 100);
+    }, 2000);
   };
 
   return (
     <div className="battle">
-      <h1>Battle</h1>
+      <h1 className="display-none">Battle</h1>
       {loading && <div className="pokeball"></div>}
       {myPokemon && opponentPokemon && (
         <div>
-          <h2>My Pokemon</h2>
-          <h3>{myPokemon.name}</h3>
-          <h3>{myHp} HP</h3>
-          <h3>{myPokemon.stats[1].base_stat} Attack</h3>
-          <h3>{myPokemon.stats[2].base_stat} Defense</h3>
-          <img
-            style={{ width: "100px" }}
-            src={
-              myPokemon.sprites.other.showdown.back_default ||
-              myPokemon.sprites.front_default
-            }
-            alt={myPokemon.name}
-          />
-          <h2>Opponent Pokemon</h2>
-          <h3>{opponentPokemon.name}</h3>
-          <h3>{opponentHp} HP</h3>
-          <h3>{opponentPokemon.stats[1].base_stat} Attack</h3>
-          <h3>{opponentPokemon.stats[2].base_stat} Defense</h3>
-          <img
-            style={{ width: "100px" }}
-            src={
-              opponentPokemon.sprites.other.showdown.front_default ||
-              opponentPokemon.sprites.front_default
-            }
-            alt={opponentPokemon.name}
-          />
+          <section className="opponent">
+            {/* <h2>Opponent Pokemon</h2> */}
+            <div className="stat-box">
+              <h2>
+                {opponentPokemon.name.slice(0, 1).toUpperCase() +
+                  opponentPokemon.name.slice(1)}
+              </h2>
+              <div className="health-container hp-opponent">
+                <p className="health-hp">HP</p>
+                <div className="health-back"></div>
+                {opponentHpRate ? (
+                  <div
+                    style={{ width: `${opponentHpRate}%` }}
+                    className="health-bar"
+                  ></div>
+                ) : null}
+              </div>
+              {opponentPokemon ? (
+                <p className="hp">
+                  {opponentHp}/{opponentPokemon.stats[0].base_stat} HP
+                </p>
+              ) : null}
+            </div>
+            {/* <h3>{opponentPokemon.stats[1].base_stat} Attack</h3>
+            <h3>{opponentPokemon.stats[2].base_stat} Defense</h3> */}
+            <img
+              src={
+                opponentPokemon.sprites.other.showdown.front_default ||
+                opponentPokemon.sprites.front_default
+              }
+              alt={opponentPokemon.name}
+            />
+            <div className="circle"></div>
+          </section>
+
+          <section className="trainer">
+            <img
+              src={
+                myPokemon.sprites.other.showdown.back_default ||
+                myPokemon.sprites.front_default
+              }
+              alt={myPokemon.name}
+            />
+            <div className="circle"></div>
+            {/* <h2>My Pokemon</h2> */}
+            <div className="stat-box">
+              <h2>
+                {myPokemon.name.slice(0, 1).toUpperCase() +
+                  myPokemon.name.slice(1)}
+              </h2>
+              <div className="health-container hp-triner">
+                <p className="health-hp">HP</p>
+                <div className="health-back"></div>
+                {trainerHpRate ? (
+                  <div
+                    style={{ width: `${trainerHpRate}%` }}
+                    className="health-bar"
+                  ></div>
+                ) : null}
+              </div>
+              {myPokemon ? (
+                <p className="hp">
+                  {myHp}/{myPokemon.stats[0].base_stat} HP{" "}
+                </p>
+              ) : null}
+            </div>
+            {/* <h3>{myPokemon.stats[1].base_stat} Attack</h3>
+            <h3>{myPokemon.stats[2].base_stat} Defense</h3> */}
+          </section>
+          <section className="text-box">
+            <p> {fightText} </p>
+          </section>
+
           <button onClick={startFight}>Fight</button>
           <button onClick={() => getMyPokemon()}>New Pokemon</button>
           <button onClick={() => getOpponentPokemon()}>New Opponent</button>
