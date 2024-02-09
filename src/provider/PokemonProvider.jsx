@@ -1,33 +1,16 @@
-import { createContext, useState, useEffect } from "react";
-import { SERVER } from "../constants/server";
-import axios from "axios";
+import { createContext, useState } from "react";
 
 export const PokemonContext = createContext();
 
-const fetchUser = async () => {
-  try {
-    const response = await axios.get(`${SERVER}/user/`, {
-      params: {
-        name: user.name,
-        password: user.password,
-      },
-    });
-    setUser(response.data);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const PokemonProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    fetchUser(setUser);
-  }, []);
+  const [user, setUser] = useState({});
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
 
   const value = {
     user,
     setUser,
+    userIsLoggedIn,
+    setUserIsLoggedIn
   };
 
   return (
@@ -49,3 +32,9 @@ export const PokemonProvider = ({ children }) => {
 //     { $push: { pokemons: numberToAdd } }
 //   );
 // }
+
+// to use the context in a component:
+// import { useContext } from "react";
+// import { PokemonContext } from "../provider/PokemonProvider";
+//
+// const { user, setUser } = useContext(PokemonContext);
