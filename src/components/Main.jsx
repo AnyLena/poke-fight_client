@@ -24,7 +24,7 @@ const Main = () => {
   const getPokemon = async () => {
     const limit = 50;
     try {
-      const res = await fetch(`${SERVER}?offset=${offset}&limit=${limit}`);
+      const res = await fetch(`${SERVER}/pokemon?offset=${offset}&limit=${limit}`);
       const data = await res.json();
       return data;
     } catch (error) {
