@@ -5,8 +5,7 @@ import { getTypeColor } from "../utils/strings";
 import "../styles/Pokeball.css";
 import { SERVER } from "../constants/server";
 import InfiniteScroll from "react-infinite-scroller";
-// import { PokemonContext } from '../provider/PokemonProvider';
-
+import { PokemonContext } from '../provider/PokemonProvider';
 
 const Main = () => {
   const [pokemon, setPokemon] = useState([]);
@@ -16,7 +15,7 @@ const Main = () => {
   const [offset, setOffset] = useState(0);
   const [lang, setLang] = useState("en");
 
-  // const { user, setUser } = useContext(PokemonContext);
+  const { user, setUser } = useContext(PokemonContext);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -24,7 +23,9 @@ const Main = () => {
   const getPokemon = async () => {
     const limit = 50;
     try {
-      const res = await fetch(`${SERVER}/pokemon?offset=${offset}&limit=${limit}`);
+      const res = await fetch(
+        `${SERVER}/pokemon?offset=${offset}&limit=${limit}`
+      );
       const data = await res.json();
       return data;
     } catch (error) {
@@ -60,7 +61,7 @@ const Main = () => {
       fetchPokemon();
       console.log("Loading more pokemons from InfiniteScroll");
     }
-  };
+  };  
 
   return (
     <div>
@@ -95,9 +96,11 @@ const Main = () => {
               >
                 <div className="dex-img-container">
                   <div className="dex-circle"></div>
-                  <img
-                    src={poke.sprites.other["official-artwork"].front_default}
-                    alt={poke.name.en}
+                  <div className="img"
+                    style={{
+                      backgroundImage: user.pokemons.includes(poke.id.toString()) ? `url(${poke.sprites.other["official-artwork"].front_default})` : 'none',
+                      maskImage: `url(${poke.sprites.other["official-artwork"].front_default})`,
+                    }}
                   />
                 </div>
                 <p className="dex-number">#{poke.id}</p>

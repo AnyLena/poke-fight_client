@@ -3,9 +3,6 @@
     "Lucida Sans", Arial, sans-serif;
   text-align: center;
 }
-.pokedex {
-    min-height: 100dvh;
-}
 
 .pokedex-grid {
   display: grid;
@@ -25,12 +22,12 @@
     box-shadow: rgba(100, 100, 111, 0.8) 0px 7px 29px 5px;
     transform: scale(1.02);
   }
-  &:hover img {
+  &:hover .img {
     transform: scale(1.1);
   }
   &:hover .dex-circle {
     background-color: rgba(255, 255, 255, 0.7);
-    transform: scale(1.1);
+    transform: scale(1.3);
   }
 }
 
@@ -46,16 +43,21 @@
   height: 140px;
   margin: auto;
   grid-area: 1/1/2/2;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
-.poke-card img {
-  max-width: 200px;
-  max-height: 200px;
+.poke-card .img {
+  width: 200px;
+  height: 200px;
+  mask-size: cover;
+  mask-mode: alpha;
   margin: auto;
   margin-top: 20px;
   grid-area: 1/1/2/2;
   transition: all .2s ease-in-out;
+  background-size: cover;
+  background-position: center;
+  background-color: rgb(88, 88, 88);
 }
 
 .dex-number {
