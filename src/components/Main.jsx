@@ -63,7 +63,7 @@ const Main = () => {
   };
 
   return (
-    <>
+    <div className='pokedex'>
       <PokemonModal
         open={open}
         handleClose={handleClose}
@@ -118,7 +118,7 @@ const Main = () => {
           )}
         </section>
       </InfiniteScroll>
-    </>
+    </div>
   );
 };
 

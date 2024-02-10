@@ -1,53 +1,71 @@
-*{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    text-align: center;
+* {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  text-align: center;
+}
+.pokedex {
+    min-height: 100dvh;
 }
 
 .pokedex-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 30px;
-    margin:60px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 30px;
+  margin: 60px;
 }
 
 .poke-card {
-    background-color: lightgrey;
-    border-radius: 30px;
-    padding-bottom: 20px;
-    cursor: pointer;
-    box-shadow: rgba(100, 100, 111, .4) 0px 7px 29px 0px;
+  background-color: lightgrey;
+  border-radius: 30px;
+  padding-bottom: 20px;
+  cursor: pointer;
+  box-shadow: rgba(100, 100, 111, 0.4) 0px 7px 29px 0px;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    box-shadow: rgba(100, 100, 111, 0.8) 0px 7px 29px 5px;
+    transform: scale(1.02);
+  }
+  &:hover img {
+    transform: scale(1.1);
+  }
+  &:hover .dex-circle {
+    background-color: rgba(255, 255, 255, 0.7);
+    transform: scale(1.1);
+  }
 }
 
 .dex-img-container {
-    display: grid;
-    grid-template-columns: 1fr;
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
 .dex-circle {
-    background-color: rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-    width: 140px;
-    height: 140px;
-    margin: auto;
-    grid-area: 1/1/2/2;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  width: 140px;
+  height: 140px;
+  margin: auto;
+  grid-area: 1/1/2/2;
+  transition: all .2s ease-in-out;
 }
 
 .poke-card img {
-    max-width: 200px;
-    max-height: 200px;
-    margin: auto;
-    margin-top: 20px;
-    grid-area: 1/1/2/2;
+  max-width: 200px;
+  max-height: 200px;
+  margin: auto;
+  margin-top: 20px;
+  grid-area: 1/1/2/2;
+  transition: all .2s ease-in-out;
 }
 
 .dex-number {
-    background-color: rgba(0, 0, 0, 0.2);
-    display: inline;
-    padding: 5px 10px;
-    border-radius: 12px;
-    margin: auto;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: inline;
+  padding: 5px 10px;
+  border-radius: 12px;
+  margin: auto;
 }
 
 .poke-card h2 {
-    margin: 10px 0;
+  margin: 10px 0;
 }
