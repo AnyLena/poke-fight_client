@@ -63,7 +63,7 @@ const Main = () => {
   };
 
   return (
-    <div className='pokedex'>
+    <div>
       <PokemonModal
         open={open}
         handleClose={handleClose}

@@ -11,8 +11,8 @@ import About from "../components/User/About";
 const Login = () => {
   const { userIsLoggedIn } = useContext(PokemonContext);
   return (
-    <>
-      <Form />
+    <div className='body'>
+      {!userIsLoggedIn && <Form />}
       {userIsLoggedIn && (
         <>
           <MenuBar />
@@ -24,7 +24,7 @@ const Login = () => {
           </Routes>
         </>
       )}
-    </>
+    </div>
   );
 };
 
