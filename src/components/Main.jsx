@@ -98,7 +98,7 @@ const Main = () => {
                   <div className="dex-circle"></div>
                   <div className="img"
                     style={{
-                      backgroundImage: user.pokemons.includes(poke.id.toString()) ? `url(${poke.sprites.other["official-artwork"].front_default})` : 'none',
+                      backgroundImage: user.pokemons.includes(poke.id) ? `url(${poke.sprites.other["official-artwork"].front_default})` : 'none',
                       maskImage: `url(${poke.sprites.other["official-artwork"].front_default})`,
                     }}
                   />

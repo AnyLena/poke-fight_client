@@ -25,6 +25,9 @@ const SignUp = () => {
   };
 
   const handleChange = (key, value) => {
+    if (key === 'pokemonId') {
+      value = Number(value);
+    }    
     setInput({ ...input, [key]: value });
     console.log(input);
   };
