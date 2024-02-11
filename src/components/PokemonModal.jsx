@@ -2,8 +2,8 @@ import { forwardRef, useState } from "react";
 import { Dialog, DialogContent, Grow } from "@mui/material";
 import { getTypeColor } from "../utils/strings";
 import "../styles/PokemonModal.css";
-import { MdOutlineArrowCircleLeft } from "react-icons/md";
-import { MdOutlineArrowCircleRight } from "react-icons/md";
+
+import ModalGallery from "./ModalGallery";
 
 const Transition = forwardRef((props, ref) => (
   <Grow direction="down" ref={ref} {...props} />
@@ -55,24 +55,7 @@ function PokemonModal({ open, handleClose, selectedPokemon }) {
               )} 50%)`,
             }}
           >
-            <div className="modal-img-container">
-              <div className="modal-circle"></div>
-              <div className="images">
-                {images.map((image) => (
-                  <img
-                    style={{ transform: `translateX(${-100 * imageIndex}%)` }}
-                    src={image}
-                    key={image}
-                  />
-                ))}
-              </div>
-              <button className="prev-btn" onClick={handlePrevious}>
-                <MdOutlineArrowCircleLeft />
-              </button>
-              <button className="next-btn" onClick={handleNext}>
-                <MdOutlineArrowCircleRight />
-              </button>
-            </div>
+            <ModalGallery images={images} imageIndex={imageIndex} handleNext={handleNext} handlePrevious={handlePrevious}/>
 
             <div className="modal-info">
               <p className="dex-number">#{selectedPokemon.id}</p>

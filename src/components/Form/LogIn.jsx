@@ -1,29 +1,36 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { PokemonContext } from "../../provider/PokemonProvider";
+import { Button } from "@mui/material";
 import { SERVER } from "../../constants/server";
+import UserAndPassword from "./UserAndPassword";
 import axios from "axios";
 import "../../styles/Form.css";
 
-const fetchUser = async (input, setUser, setMessage, setUserIsLoggedIn) => {
+const fetchUser = async (
+  input,
+  setUser,
+  setMessage,
+  setUserIsLoggedIn,
+  setErrorMessage
+) => {
   try {
     const response = await axios.get(
       `${SERVER}/user?username=${input.username}&password=${input.password}`
     );
-    setMessage("User logged in.");
+    setMessage(`Welcome back, ${response.data.username}.`);
     setUser(response.data);
-    setUserIsLoggedIn(true);
+    setTimeout(() => {
+      setUserIsLoggedIn(true);
+    }, 2000);
   } catch (error) {
-    console.log(error);
-    setMessage(error.response.data.message);
+    setErrorMessage(error.response.data.message);
   }
 };
 
-const LogIn = () => {
-  const { user, setUser, userIsLoggedIn, setUserIsLoggedIn } =
+const LogIn = ({ setMessage, setErrorMessage, submitted, setSubmitted }) => {
+  const { setUser, userIsLoggedIn, setUserIsLoggedIn } =
     useContext(PokemonContext);
-
   const [input, setInput] = useState({});
-  const [message, setMessage] = useState(null);
 
   const handleChange = (key, value) => {
     setInput({ ...input, [key]: value });
@@ -31,44 +38,28 @@ const LogIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchUser(input, setUser, setMessage, setUserIsLoggedIn);
-  };
-
-  useEffect(() => {
+    setSubmitted(true);
+    setErrorMessage(null);
     setMessage(null);
-  }, []);
+    fetchUser(input, setUser, setMessage, setUserIsLoggedIn, setErrorMessage);
+  };
 
   return (
     <>
       {!userIsLoggedIn && (
         <>
           <div className="login">
-            <h2>Log In</h2>
             <form onSubmit={handleSubmit}>
-              <label>
-                Username
-                <input
-                  onChange={(e) => handleChange(e.target.name, e.target.value)}
-                  name="username"
-                  type="text"
-                  placeholder="Username"
-                  required
-                />
-              </label>
-              <label>
-                Password
-                <input
-                  onChange={(e) => handleChange(e.target.name, e.target.value)}
-                  name="password"
-                  type="password"
-                  placeholder="Password"
-                  required
-                />
-              </label>
-              <button type="submit">Log in</button>
+              <UserAndPassword
+                handleChange={handleChange}
+                input={input}
+                submitted={submitted}
+              />
+              <Button submitted={submitted} type="submit" variant="contained">
+                Log in
+              </Button>
             </form>
           </div>
-          {message && <p>{message}</p>}
         </>
       )}
     </>
