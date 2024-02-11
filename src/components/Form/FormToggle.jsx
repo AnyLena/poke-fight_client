@@ -1,13 +1,14 @@
-import * as React from 'react';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import * as React from "react";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import { useState } from "react";
 
-export default function FormToggle({isSignUp, setIsSignUp}) {
-  const [alignment, setAlignment] = React.useState('signup');
+export default function FormToggle({ setIsSignUp }) {
+  const [alignment, setAlignment] = useState("signup");
 
-  const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
-    setIsSignUp(!isSignUp)
+  const handleChange = (value) => {
+    setAlignment(value);
+    setIsSignUp(value === "signup");
   };
 
   return (
@@ -15,11 +16,17 @@ export default function FormToggle({isSignUp, setIsSignUp}) {
       color="primary"
       value={alignment}
       exclusive
-      onChange={handleChange}
       aria-label="Form type"
     >
-      <ToggleButton value="signup">Sign Up</ToggleButton>
-      <ToggleButton value="login">Log In</ToggleButton>
+      <ToggleButton
+        onClick={(e) => handleChange(e.target.value)}
+        value="signup"
+      >
+        Sign Up
+      </ToggleButton>
+      <ToggleButton onClick={(e) => handleChange(e.target.value)} value="login">
+        Log In
+      </ToggleButton>
     </ToggleButtonGroup>
   );
 }

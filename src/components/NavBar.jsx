@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import "../styles/NavBar.css";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdOutlineCatchingPokemon } from "react-icons/md";
 import { GiPunchBlast } from "react-icons/gi";
-import { GoTrophy } from "react-icons/go";
+import { FiAward } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { PokemonContext } from "../provider/PokemonProvider";
 
 const NavBar = () => {
   const [value, setValue] = useState(0);
+  const { userIsLoggedIn } = useContext(PokemonContext);
 
   const navigate = useNavigate();
 
@@ -38,31 +40,37 @@ const NavBar = () => {
         }}
       />
       <BottomNavigationAction
-        style={{ color: value === 1 ? "#fff" : "#888" }}
+        style={{
+          color: !userIsLoggedIn ? "#555" : value === 1 ? "#fff" : "#888",
+        }}
         className="nav-button"
         label="Pokédex"
         icon={<MdOutlineCatchingPokemon className="icon" />}
         onClick={() => {
           navigate("/pokedex");
         }}
+        disabled={!userIsLoggedIn}
       />
       <BottomNavigationAction
-        style={{ color: value === 2 ? "#fff" : "#888" }}
+        style={{
+          color: !userIsLoggedIn ? "#555" : value === 2 ? "#fff" : "#888",
+        }}
         className="nav-button"
         label="Fight!"
         onClick={() => {
           navigate("/fight");
         }}
         icon={<GiPunchBlast className="icon" />}
+        disabled={!userIsLoggedIn}
       />
       <BottomNavigationAction
-        style={{ color: value === 3 ? "#fff" : "#888" }}
+        style={{ color: value === 3 ? "#FFD700" : "#888" }}
         className="nav-button"
         label="Ranking"
         onClick={() => {
           navigate("/ranking");
         }}
-        icon={<GoTrophy className="icon" />}
+        icon={<FiAward className="icon" />}
       />
     </BottomNavigation>
   );

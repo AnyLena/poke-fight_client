@@ -3,31 +3,68 @@ import { PokemonContext } from "../../provider/PokemonProvider";
 import { SERVER } from "../../constants/server";
 import axios from "axios";
 import "../../styles/Form.css";
+import UserAndPassword from "./UserAndPassword";
+import { Button } from "@mui/material";
+import ModalGallery from "../ModalGallery";
+import bulbasaur from "../../assets/1.gif";
+import charmander from "../../assets/4.gif";
+import squirtle from "../../assets/7.gif";
 
-const createUser = async (user, setMessage) => {
+const createUser = async (user, setMessage, setErrorMessage) => {
   try {
     const response = await axios.post(`${SERVER}/user/`, user);
     console.log(`Server responded`, response.data);
+    setErrorMessage(null);
     setMessage(response.data.message);
   } catch (error) {
-    setMessage(error.response.data.message);
+    setMessage(null);
+    setErrorMessage(error.response.data.message);
   }
 };
 
 const SignUp = () => {
-  const [input, setInput] = useState({});
+  const [input, setInput] = useState({
+    username: "",
+    password: "",
+    pokemonId: 1,
+  });
   const [message, setMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const { userIsLoggedIn } = useContext(PokemonContext);
+  const [imageIndex, setImageIndex] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
 
+  const images = [bulbasaur, charmander, squirtle];
+  const pokemonNames = {
+    1: "Bulbasaur",
+    4: "Charmander",
+    7: "Squirtle",
+  };
+
+  const handleNext = () => {
+    setImageIndex((index) => {
+      let newIndex = index === images.length - 1 ? 0 : index + 1;
+      handleChange("pokemonId", newIndex === 0 ? 1 : newIndex === 1 ? 4 : 7);
+      return newIndex;
+    });
+  };
+  const handlePrevious = () => {
+    setImageIndex((index) => {
+      let newIndex = index === 0 ? images.length - 1 : index - 1;
+      handleChange("pokemonId", newIndex === 0 ? 1 : newIndex === 1 ? 4 : 7);
+      return newIndex;
+    });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    createUser(input, setMessage);
+    setSubmitted(true);
+    createUser(input, setMessage, setErrorMessage);
   };
 
   const handleChange = (key, value) => {
-    if (key === 'pokemonId') {
+    if (key === "pokemonId") {
       value = Number(value);
-    }    
+    }
     setInput({ ...input, [key]: value });
     console.log(input);
   };
@@ -37,45 +74,27 @@ const SignUp = () => {
       {!userIsLoggedIn && (
         <div className="signup">
           <form onSubmit={handleSubmit}>
-            <h2>Sign up</h2>
-            <label>
-              Username
-              <input
-                onChange={(e) => handleChange(e.target.name, e.target.value)}
-                name="username"
-                type="text"
-                placeholder="Username"
-                required
-              />
-            </label>
-            <label>
-              Password
-              <input
-                onChange={(e) => handleChange(e.target.name, e.target.value)}
-                name="password"
-                type="password"
-                placeholder="Password"
-                required
-              />
-            </label>
-            <label>
-              Select starting Pokemon
-              <select
-                onChange={(e) => handleChange(e.target.name, e.target.value)}
-                name="pokemonId"
-                required
-              >
-                <option disabled selected value="">
-                  Select a Pokemon
-                </option>
-                <option value="1">Bulbasaur</option>
-                <option value="4">Charmander</option>
-                <option value="7">Squirtle</option>
-              </select>
-            </label>
-            <button type="submit">Submit</button>
+            <UserAndPassword
+              handleChange={handleChange}
+              input={input}
+              submitted={submitted}
+            />
+
+            <label>Select your starting Pokemon</label>
+
+            <ModalGallery
+              images={images}
+              imageIndex={imageIndex}
+              handleNext={handleNext}
+              handlePrevious={handlePrevious}
+            />
+            <p className="pokemon-name">{pokemonNames[input.pokemonId]}</p>
+            <Button type="submit" variant="contained">
+              Sign up
+            </Button>
           </form>
-          {message && <p>{message}</p>}
+          {message && <p className="message">{message}</p>}
+          {errorMessage && <p className="error">{errorMessage}</p>}
         </div>
       )}
     </>

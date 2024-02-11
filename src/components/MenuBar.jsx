@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { PokemonContext } from "../provider/PokemonProvider";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { GiPunchBlast } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 
@@ -20,8 +20,8 @@ const pages = ["My Pokemons", "Battle Stats", "About"];
 const settings = ["Profile", "Logout"];
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const { user, setUser, userIsLoggedIn, setUserIsLoggedIn } =
     useContext(PokemonContext);
   const navigate = useNavigate();
@@ -29,6 +29,7 @@ function ResponsiveAppBar() {
   const handleLogOut = () => {
     setUserIsLoggedIn(false);
     setUser({});
+    navigate("/");
   };
 
   const handleOpenNavMenu = (event) => {
@@ -51,12 +52,7 @@ function ResponsiveAppBar() {
 
   const handleCloseUserMenu = (setting) => {
     setAnchorElUser(null);
-    if (setting === "Logout") {
-      handleLogOut();
-      navigate("/");
-    } else if (setting === "Profile") {
-      navigate("/");
-    }
+    setting === "Logout" ? handleLogOut() : navigate("/");
   };
 
   return (
@@ -118,7 +114,7 @@ function ResponsiveAppBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              cursor: "pointer"
+              cursor: "pointer",
             }}
           >
             POKE-FIGHT!

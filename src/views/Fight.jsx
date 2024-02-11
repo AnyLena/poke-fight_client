@@ -1,10 +1,21 @@
 import Battle from "../components/Battle";
+import { PokemonContext } from "../provider/PokemonProvider";
+import { useContext } from "react";
 
 const Fight = () => {
+  const { userIsLoggedIn } = useContext(PokemonContext);
   return (
-    <>
-      <Battle />
-    </>
+    <div className="body">
+      {userIsLoggedIn ? (
+        <Battle />
+      ) : (
+        <>
+          <h2>You want to play the game?</h2>
+          <br></br>
+          <h2>You need to log in yes or yes!</h2>
+        </>
+      )}
+    </div>
   );
 };
 
