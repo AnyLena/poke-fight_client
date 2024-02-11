@@ -1,20 +1,36 @@
+import React, { useState } from "react";
+import FormToggle from "./FormToggle.jsx";
 import SignUp from "./SignUp";
 import LogIn from "./LogIn";
-import React, { useState, useContext } from "react";
-import { PokemonContext } from "../../provider/PokemonProvider";
-import FormToggle from './FormToggle.jsx'
-import "../../styles/Form.css"
+import Message from "./Message";
+import "../../styles/Form.css";
 
 const Form = () => {
-  const { userIsLoggedIn } = useContext(PokemonContext);
   const [isSignUp, setIsSignUp] = useState(true);
+  const [message, setMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
 
   return (
     <div className="form">
-      {!userIsLoggedIn && (
-        <FormToggle isSignUp={isSignUp} setIsSignUp={setIsSignUp}/>
+      <FormToggle isSignUp={isSignUp} setIsSignUp={setIsSignUp} />
+      {isSignUp ? (
+        <SignUp
+          setMessage={setMessage}
+          setErrorMessage={setErrorMessage}
+          submitted={submitted}
+          setSubmitted={setSubmitted}
+        />
+      ) : (
+        <LogIn
+          setMessage={setMessage}
+          setErrorMessage={setErrorMessage}
+          submitted={submitted}
+          setSubmitted={setSubmitted}
+        />
       )}
-      {isSignUp ? <SignUp /> : <LogIn />}
+      {message && <Message message={message} severity="success" />}
+      {errorMessage && <Message message={errorMessage} severity="error" />}
     </div>
   );
 };

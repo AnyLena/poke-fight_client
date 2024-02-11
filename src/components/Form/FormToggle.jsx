@@ -1,7 +1,6 @@
-import * as React from "react";
+import { useState } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { useState } from "react";
 
 export default function FormToggle({ setIsSignUp }) {
   const [alignment, setAlignment] = useState("signup");

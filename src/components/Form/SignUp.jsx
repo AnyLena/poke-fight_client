@@ -13,26 +13,20 @@ import squirtle from "../../assets/7.gif";
 const createUser = async (user, setMessage, setErrorMessage) => {
   try {
     const response = await axios.post(`${SERVER}/user/`, user);
-    console.log(`Server responded`, response.data);
-    setErrorMessage(null);
     setMessage(response.data.message);
   } catch (error) {
-    setMessage(null);
     setErrorMessage(error.response.data.message);
   }
 };
 
-const SignUp = () => {
+const SignUp = ({setMessage, setErrorMessage, submitted, setSubmitted}) => {
   const [input, setInput] = useState({
     username: "",
     password: "",
     pokemonId: 1,
   });
-  const [message, setMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
   const { userIsLoggedIn } = useContext(PokemonContext);
   const [imageIndex, setImageIndex] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
 
   const images = [bulbasaur, charmander, squirtle];
   const pokemonNames = {
@@ -55,9 +49,12 @@ const SignUp = () => {
       return newIndex;
     });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
+    setErrorMessage(null);
+    setMessage(null);
     createUser(input, setMessage, setErrorMessage);
   };
 
@@ -66,7 +63,6 @@ const SignUp = () => {
       value = Number(value);
     }
     setInput({ ...input, [key]: value });
-    console.log(input);
   };
 
   return (
@@ -88,13 +84,13 @@ const SignUp = () => {
               handleNext={handleNext}
               handlePrevious={handlePrevious}
             />
+
             <p className="pokemon-name">{pokemonNames[input.pokemonId]}</p>
+
             <Button type="submit" variant="contained">
               Sign up
             </Button>
           </form>
-          {message && <p className="message">{message}</p>}
-          {errorMessage && <p className="error">{errorMessage}</p>}
         </div>
       )}
     </>

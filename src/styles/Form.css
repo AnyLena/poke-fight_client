@@ -13,32 +13,10 @@ form > * {
 form > label {
   font-size: 1.22rem;
   font-weight: bold;
-color: #515151;
+  color: #515151;
 }
-.pokemon-name{
+.pokemon-name {
   font-size: 1.5rem;
   font-weight: bold;
   color: #515151;
-}
-.error,
-.message {
-  margin-top: 2rem;
-  font-size: 1.5rem;
-  text-align: center;
-  transition: all 0.3s;
-  animation: identifier 0.5s;
-}
-.error {
-  color: rgb(220, 63, 63);
-}
-.message {
-  color: rgb(44, 139, 44);
-}
-@keyframes identifier {
-  from {
-    transform: scale(.2);
-  }
-  to {
-    transform: scale(1);
-  }
 }

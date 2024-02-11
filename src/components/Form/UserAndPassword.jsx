@@ -33,7 +33,7 @@ const UserAndPassword = ({ handleChange, input, submitted }) => {
         onChange={(e) => handleChange(e.target.name, e.target.value)}
         name="password"
         type="password"
-        error={submitted && !input.username}
+        error={submitted && !input.password}
         sx={{
           transition: "all 0.3s ease",
         }}
