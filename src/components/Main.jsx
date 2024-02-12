@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import "../styles/Main.css";
 import PokemonModal from "./PokemonModal";
-import { getTypeColor } from "../utils/strings";
 import "../styles/Pokeball.css";
 import { SERVER } from "../constants/server";
 import InfiniteScroll from "react-infinite-scroller";
 import { PokemonContext } from '../provider/PokemonProvider';
+import Grid from "./Grid";
 
 const Main = () => {
   const [pokemon, setPokemon] = useState([]);
@@ -81,45 +81,7 @@ const Main = () => {
           </div>
         }
       >
-        <section className="pokedex-grid">
-          {pokemon.length > 0 ? (
-            pokemon.map((poke) => (
-              <div
-                key={poke.id}
-                className="poke-card"
-                onClick={() => handleClick(poke)}
-                style={{
-                  background: `linear-gradient(to right, ${getTypeColor(
-                    poke.type[0]
-                  )} 50%, ${getTypeColor(poke.type[1] || poke.type[0])} 50%)`,
-                }}
-              >
-                <div className="dex-img-container">
-                  <div className="dex-circle"></div>
-                  <div className="img"
-                    style={{
-                      backgroundImage: user.pokemons.includes(poke.id) ? `url(${poke.sprites.other["official-artwork"].front_default})` : 'none',
-                      maskImage: `url(${poke.sprites.other["official-artwork"].front_default})`,
-                    }}
-                  />
-                </div>
-                <p className="dex-number">#{poke.id}</p>
-                <h2>
-                  {lang === "de"
-                    ? poke.name.other[5].name.charAt(0).toUpperCase() +
-                      poke.name.other[5].name.slice(1)
-                    : lang === "jp"
-                    ? poke.name.other[0].name.charAt(0).toUpperCase() +
-                      poke.name.other[0].name.slice(1)
-                    : poke.name.en.charAt(0).toUpperCase() +
-                      poke.name.en.slice(1)}
-                </h2>
-              </div>
-            ))
-          ) : (
-            <div></div>
-          )}
-        </section>
+       {pokemon && <Grid pokemon={pokemon} user={user} lang={lang} handleClick={handleClick}/>}
       </InfiniteScroll>
     </div>
   );
