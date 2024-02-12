@@ -38,12 +38,10 @@ const MyPokemons = () => {
     if (user && user.team) {
       setTeam(user.team);
     }
+    if (pokemon.length <= offset) {
+      fetchPokemons();
+    }
   }, [user]);
-
-  useEffect(() => {
-    fetchPokemons();
-  }, [userIsLoggedIn]);
-
 
   const updateUser = async (newTeam) => {
     try {
@@ -51,7 +49,7 @@ const MyPokemons = () => {
         ...user,
         team: newTeam,
       });
-      setUser({ ...user, team: newTeam })
+      setUser({ ...user, team: newTeam });
       console.log("Updating user", user._id, newTeam);
     } catch (error) {
       console.log(error);
