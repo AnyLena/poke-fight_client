@@ -30,21 +30,22 @@ const Battle = () => {
       const res = await fetch(`${SERVER}/pokemon/${myPokemonId}`);
       const data = await res.json();
       setMyPokemon(data);
-      setMyHp(data.stats[0].base_stat);
-      // console.log("MyPokemon", data);
+      setMyHp(data.base.hp);
+      console.log("MyPokemon", data);
     } catch (error) {
       console.log(error);
     }
   };
+
 
   const getOpponentPokemon = async () => {
     try {
       const res = await fetch(`${SERVER}/pokemon/${randomNumber(150)}`);
       const data = await res.json();
       setOpponentPokemon(data);
-      setOpponentHp(data.stats[0].base_stat);
+      setOpponentHp(data.base.hp);
       setOpponentId(data.id);
-      // console.log("Opponent Pokemon", data);
+      console.log("Opponent Pokemon", data);
     } catch (error) {
       console.log(error);
     }
@@ -101,7 +102,7 @@ const Battle = () => {
   useEffect(() => {
     let text;
     opponentPokemon
-      ? (text = `A wild ${opponentPokemon.name.toUpperCase()} appeared!`)
+      ? (text = `A wild ${opponentPokemon.name.en.toUpperCase()} appeared!`)
       : null;
     setFightText(text);
     setOpponentHpRate(100);
@@ -114,7 +115,7 @@ const Battle = () => {
   // CALCULATING DAMAGE
   const calculateDamage = (attacker, defender) => {
     let damage = Math.floor(
-      (10 + attacker.stats[1].base_stat - defender.stats[2].base_stat) /
+      (10 + attacker.base.attack - defender.base.defense) /
         (Math.random() * 2 + 1)
     );
     damage <= 5 ? (damage = Math.floor(Math.random() * 4) + 1) : damage;
@@ -133,19 +134,19 @@ const Battle = () => {
       ? setOpponentHp(0)
       : setOpponentHp((prevState) => prevState - myDamage);
     setOpponentHpRate(
-      (prev) => (opponentHp / opponentPokemon.stats[0].base_stat) * 100
+      (prev) => (opponentHp / opponentPokemon.base.hp) * 100
     );
 
     // Opponent's turn
     setTimeout(() => {
       const opponentDamage = calculateDamage(opponentPokemon, myPokemon);
       console.log("Opponent Damage", opponentDamage);
-      let opponentText = `Foe ${opponentPokemon.name.toUpperCase()} inflicts ${opponentDamage} DAMAGE`;
+      let opponentText = `Foe ${opponentPokemon.name.en.toUpperCase()} inflicts ${opponentDamage} DAMAGE`;
       setFightText(opponentText);
       myHp - opponentDamage <= 0
         ? setMyHp(0)
         : setMyHp((prevState) => prevState - opponentDamage);
-      setTrainerHpRate((prev) => (myHp / myPokemon.stats[0].base_stat) * 100);
+      setTrainerHpRate((prev) => (myHp / myPokemon.base.hp) * 100);
       setFightEnabled(true);
     }, 2000);
   };
@@ -166,8 +167,8 @@ const Battle = () => {
             {/* <h2>Opponent Pokemon</h2> */}
             <div className="stat-box">
               <h2>
-                {opponentPokemon.name.slice(0, 1).toUpperCase() +
-                  opponentPokemon.name.slice(1)}
+                {opponentPokemon.name.en.slice(0, 1).toUpperCase() +
+                  opponentPokemon.name.en.slice(1)}
               </h2>
               <div className="health-container hp-opponent">
                 <p className="health-hp">HP</p>
@@ -181,7 +182,7 @@ const Battle = () => {
               </div>
               {opponentPokemon ? (
                 <p className="hp">
-                  {opponentHp}/{opponentPokemon.stats[0].base_stat} HP
+                  {opponentHp}/{opponentPokemon.base.hp} HP
                 </p>
               ) : null}
             </div>
@@ -191,7 +192,7 @@ const Battle = () => {
                   opponentPokemon.sprites.other.showdown.front_default ||
                   opponentPokemon.sprites.front_default
                 }
-                alt={opponentPokemon.name}
+                alt={opponentPokemon.name.en}
               />
             ) : null}
             <div className="circle"></div>
@@ -208,14 +209,14 @@ const Battle = () => {
                   myPokemon.sprites.other.showdown.back_default ||
                   myPokemon.sprites.front_default
                 }
-                alt={myPokemon.name}
+                alt={myPokemon.name.en}
               />
             ) : null}
             <div className="circle"></div>
             <div className="stat-box">
               <h2>
-                {myPokemon.name.slice(0, 1).toUpperCase() +
-                  myPokemon.name.slice(1)}
+                {myPokemon.name.en.slice(0, 1).toUpperCase() +
+                  myPokemon.name.en.slice(1)}
               </h2>
               <div className="health-container hp-triner">
                 <p className="health-hp">HP</p>
@@ -229,7 +230,7 @@ const Battle = () => {
               </div>
               {myPokemon ? (
                 <p className="hp">
-                  {myHp}/{myPokemon.stats[0].base_stat} HP{" "}
+                  {myHp}/{myPokemon.base.hp} HP{" "}
                 </p>
               ) : null}
             </div>

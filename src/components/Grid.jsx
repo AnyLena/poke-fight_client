@@ -20,7 +20,7 @@ const Grid = ({pokemon, user, lang, handleClick}) => {
               <div
                 className="img"
                 style={{
-                  backgroundImage: user.pokemons.includes(poke.id)
+                  backgroundImage: user.seen.includes(poke.id)
                     ? `url(${poke.sprites.other["official-artwork"].front_default})`
                     : "none",
                   maskImage: `url(${poke.sprites.other["official-artwork"].front_default})`,
