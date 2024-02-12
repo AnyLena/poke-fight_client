@@ -1,0 +1,51 @@
+.high-scores h1 {
+    font-size: 3rem;
+    text-align: center;
+    margin: 2rem;
+    text-shadow: 2px 2px 1px #cecbab;
+}
+.high-scores h2 {
+    font-size: 2rem;
+    text-align: center;
+    text-shadow: 2px 2px 1px #cecbab;
+}
+.high-scores ul{
+    list-style-type: none;
+    padding: 2rem;
+}
+.high-scores ul li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: rgba(231, 231, 231, 0.5);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+    max-width: 600px;
+    min-width: 300px;
+    margin: 2rem auto;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.high-scores ul li:first-child{
+    background-image: url(../assets/gold.png);
+    height: 80px;
+    background-size: 180px;
+}
+
+.high-scores ul li:nth-child(2){
+    background-image: url(../assets/silver.png);
+    height: 65px;
+    background-size: 125px;
+}
+
+.high-scores ul li:nth-child(3){
+    background-image: url(../assets/bronze.png);
+    height: 50px;
+    background-size: 100px;
+}
+.high-scores span {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
