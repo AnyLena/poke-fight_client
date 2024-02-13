@@ -9,7 +9,7 @@ const Transition = forwardRef((props, ref) => (
   <Grow direction="down" ref={ref} {...props} />
 ));
 
-function PokemonModal({ open, handleClose, selectedPokemon }) {
+function PokemonModal({ open, handleClose, selectedPokemon, lang }) {
   const [imageIndex, setImageIndex] = useState(0);
 
   const images = selectedPokemon
@@ -60,8 +60,21 @@ function PokemonModal({ open, handleClose, selectedPokemon }) {
             <div className="modal-info">
               <p className="dex-number">#{selectedPokemon.id}</p>
               <h2>
-                {selectedPokemon.name.en.charAt(0).toUpperCase() +
-                  selectedPokemon.name.en.slice(1)}
+              {lang === "jp"
+                ? selectedPokemon.name.other[0].name
+                : lang === "ko"
+                ? selectedPokemon.name.other[2].name
+                : lang === "ch"
+                ? selectedPokemon.name.other[3].name
+                : lang === "fr"
+                ? selectedPokemon.name.other[4].name
+                : lang === "de"
+                ? selectedPokemon.name.other[5].name
+                : lang === "es"
+                ? selectedPokemon.name.other[6].name
+                : lang === "it"
+                ? selectedPokemon.name.other[7].name
+                : selectedPokemon.name.other[8].name}
               </h2>
               <p className="stat">
                 {selectedPokemon.type.map((type) => (

@@ -4,7 +4,7 @@ import PokemonModal from "./PokemonModal";
 import "../styles/Pokeball.css";
 import { SERVER } from "../constants/server";
 import InfiniteScroll from "react-infinite-scroller";
-import { PokemonContext } from '../provider/PokemonProvider';
+import { PokemonContext } from "../provider/PokemonProvider";
 import Grid from "./Grid";
 
 const Main = () => {
@@ -61,7 +61,7 @@ const Main = () => {
       fetchPokemon();
       console.log("Loading more pokemons from InfiniteScroll");
     }
-  };  
+  };
 
   return (
     <div>
@@ -69,6 +69,7 @@ const Main = () => {
         open={open}
         handleClose={handleClose}
         selectedPokemon={selectedPokemon}
+        lang={lang}
       />
 
       <InfiniteScroll
@@ -81,7 +82,31 @@ const Main = () => {
           </div>
         }
       >
-       {pokemon && <Grid pokemon={pokemon} user={user} lang={lang} handleClick={handleClick}/>}
+       { !loading ? <div className="language">
+          <label htmlFor="lang">Display Pokémon Names in</label>
+          <select
+            name="lang"
+            id="lang"
+            onChange={(event) => setLang(event.target.value)}
+          >
+            <option value="en"><span className="flag"> 🇺🇸 🇬🇧 </span> English</option>
+            <option value="jp"> 🇯🇵 Japanese</option>
+            <option value="ko"> 🇰🇷 Korean</option>
+            <option value="ch"> 🇨🇳 Chinese</option>
+            <option value="de"> 🇩🇪 German</option>
+            <option value="fr"> 🇫🇷 Fench</option>
+            <option value="it"> 🇮🇹 Italian</option>
+            <option value="es"> 🇪🇸 Spanish</option>
+          </select>
+        </div> : null}
+        {pokemon && (
+          <Grid
+            pokemon={pokemon}
+            user={user}
+            lang={lang}
+            handleClick={handleClick}
+          />
+        )}
       </InfiniteScroll>
     </div>
   );
