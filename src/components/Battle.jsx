@@ -6,7 +6,7 @@ import { PokemonContext } from "../provider/PokemonProvider";
 
 const Battle = () => {
   // for User
-  const { user } = useContext(PokemonContext);
+  const { user, setUser } = useContext(PokemonContext);
   //for Pokemon stats
   const [myPokemonId, setMyPokemonId] = useState();
   const [myPokemon, setMyPokemon] = useState(null);
@@ -35,8 +35,8 @@ const Battle = () => {
       const data = await res.json();
       setMyPokemon(data);
       setMyHp(data.base.hp);
-      setBattleStatus('active')
-      setFightEnabled(true)
+      setBattleStatus("active");
+      setFightEnabled(true);
     } catch (error) {
       console.log(error);
     }
@@ -49,9 +49,9 @@ const Battle = () => {
       setOpponentPokemon(data);
       setOpponentHp(data.base.hp);
       setOpponentId(data.id);
-      if (battleStatus !== 'catching') {
-        setBattleStatus('active')
-        setFightEnabled(true)
+      if (battleStatus !== "catching") {
+        setBattleStatus("active");
+        setFightEnabled(true);
       }
       // console.log("Opponent Pokemon", data);
     } catch (error) {
@@ -69,7 +69,12 @@ const Battle = () => {
         },
         body: JSON.stringify({ seenPokemonId: opponentId }),
       });
-      // const result = await response.json();
+      // Update user global state
+      setUser((prev) => {
+        return prev.seen.includes(opponentId)
+          ? prev
+          : { ...prev, seen: [...prev.seen, opponentId] };
+      });
     } catch (error) {
       console.log(error.message);
     }
@@ -84,7 +89,12 @@ const Battle = () => {
         },
         body: JSON.stringify({ newPokemonId: opponentId }),
       });
-      // const result = await response.json();
+      // Update user global state
+      setUser((prev) => {
+        return prev.pokemons.includes(opponentId)
+          ? prev
+          : { ...prev, pokemons: [...prev.pokemons, opponentId] };
+      });
       setFightText("Pokémon caught!");
     } catch (error) {
       console.log(error.message);
@@ -96,9 +106,9 @@ const Battle = () => {
     setBattleStatus("inactive");
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     encounterPokemon();
-  },[opponentId])
+  }, [opponentId]);
 
   useEffect(() => {
     {
@@ -114,37 +124,41 @@ const Battle = () => {
 
   // CONTOLLING FIGHT STATUS
   useEffect(() => {
-    let timeout
+    let timeout;
     if (myHp !== null && myHp <= 0) {
       setFightText("FOE defeated TRAINER. TRAINER faints");
-      timeout = setTimeout(()=> {
+      timeout = setTimeout(() => {
         setBattleStatus("inactive");
-      },1000)
+      }, 5000);
     }
     if (opponentHp !== null && opponentHp <= 0) {
       if (newOpponent) {
         setBattleStatus("catching");
         setNewOpponent(false);
       } else {
-        setBattleStatus("inactive");
+        timeout = setTimeout(() => {
+          setBattleStatus("inactive");
+        }, 5000);
       }
     }
     return () => {
-      clearTimeout(timeout)
-    }
+      clearTimeout(timeout);
+    };
   }, [myHp, opponentHp, newOpponent]);
 
   useEffect(() => {
     let timeout;
     if (battleStatus === "catching") {
-      setMyPokemonId(0)
-      catchPokemon();
       setFightText("TRAINER defeats FOE. TRAINER wins!");
       timeout = setTimeout(() => {
+        catchPokemon();
+      }, 2500);
+      timeout = setTimeout(() => {
         setBattleStatus("inactive");
-      }, 2000);
+        setMyPokemonId(0);
+      }, 5000);
     }
-    if (battleStatus === 'inactive') {
+    if (battleStatus === "inactive") {
       setMyPokemonId(0);
     }
     return () => {
@@ -185,11 +199,11 @@ const Battle = () => {
     // console.log("My Damage", myDamage);
     let trainerText = "You inflict " + myDamage + " DAMAGE";
     setFightText(trainerText);
-    opponentHp - myDamage <= 0
-      ? setOpponentHp(0)
-      : setOpponentHp((prevState) => prevState - myDamage);
-    setOpponentHpRate((prev) => (opponentHp / opponentPokemon.base.hp) * 100);
-    setTrainerAttack(!trainerAttack)
+    const newOpponentHp = opponentHp - myDamage;
+    const newOpponentHpRate = (newOpponentHp / opponentPokemon.base.hp) * 100;
+    newOpponentHp <= 0 ? setOpponentHp(0) : setOpponentHp(newOpponentHp);
+    setOpponentHpRate(newOpponentHpRate);
+    setTrainerAttack(!trainerAttack);
   };
 
   // Opponent's turn
@@ -201,10 +215,10 @@ const Battle = () => {
         // console.log("Opponent Damage", opponentDamage);
         let opponentText = `Foe ${opponentPokemon.name.en.toUpperCase()} inflicts ${opponentDamage} DAMAGE`;
         setFightText(opponentText);
-        myHp - opponentDamage <= 0
-          ? setMyHp(0)
-          : setMyHp((prevState) => prevState - opponentDamage);
-        setTrainerHpRate((prev) => (myHp / myPokemon.base.hp) * 100);
+        const newMyHp = myHp - opponentDamage;
+        const newTrainerHpRate = (newMyHp / myPokemon.base.hp) * 100;
+        newMyHp <= 0 ? setMyHp(0) : setMyHp(newMyHp);
+        setTrainerHpRate(newTrainerHpRate);
         setFightEnabled(true);
       }, 1000);
     }
