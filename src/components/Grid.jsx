@@ -29,13 +29,21 @@ const Grid = ({pokemon, user, lang, handleClick, key}) => {
             </div>
             <p className="dex-number">#{poke.id}</p>
             <h2>
-              {lang === "de"
-                ? poke.name.other[5].name.charAt(0).toUpperCase() +
-                  poke.name.other[5].name.slice(1)
-                : lang === "jp"
-                ? poke.name.other[0].name.charAt(0).toUpperCase() +
-                  poke.name.other[0].name.slice(1)
-                : poke.name.en.charAt(0).toUpperCase() + poke.name.en.slice(1)}
+              {lang === "jp"
+                ? poke.name.other[0].name
+                : lang === "ko"
+                ? poke.name.other[2].name
+                : lang === "ch"
+                ? poke.name.other[3].name
+                : lang === "fr"
+                ? poke.name.other[4].name
+                : lang === "de"
+                ? poke.name.other[5].name
+                : lang === "es"
+                ? poke.name.other[6].name
+                : lang === "it"
+                ? poke.name.other[7].name
+                : poke.name.other[8].name}
             </h2>
           </div>
         ))
