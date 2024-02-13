@@ -1,12 +1,12 @@
 import { getTypeColor } from "../utils/strings";
 
-const Grid = ({pokemon, user, lang, handleClick}) => {
+const Grid = ({pokemon, user, lang, handleClick, key}) => {
   return (
     <section className="pokedex-grid">
       {pokemon.length > 0 ? (
         pokemon.map((poke) => (
           <div
-            key={poke.id}
+            key={`${poke.id}-${key}`}
             className="poke-card"
             onClick={() => handleClick(poke)}
             style={{
@@ -43,7 +43,7 @@ const Grid = ({pokemon, user, lang, handleClick}) => {
                 ? poke.name.other[6].name
                 : lang === "it"
                 ? poke.name.other[7].name
-                : poke.name.other[8].name}
+                : poke.name.en}
             </h2>
           </div>
         ))
