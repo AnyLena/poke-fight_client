@@ -81,7 +81,7 @@ const Main = () => {
           </div>
         }
       >
-       {pokemon && <Grid pokemon={pokemon} user={user} lang={lang} handleClick={handleClick}/>}
+       {pokemon && <Grid pokemon={pokemon} user={user} lang={lang} handleClick={handleClick} key="pokedex"/>}
       </InfiniteScroll>
     </div>
   );

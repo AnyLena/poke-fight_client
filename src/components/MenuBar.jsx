@@ -15,6 +15,7 @@ import { PokemonContext } from "../provider/PokemonProvider";
 import { useContext, useState } from "react";
 import { GiPunchBlast } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const pages = ["My Pokemons", "Battle Stats", "About"];
 const settings = ["Profile", "Logout"];
@@ -25,6 +26,7 @@ function ResponsiveAppBar() {
   const { user, setUser, userIsLoggedIn, setUserIsLoggedIn } =
     useContext(PokemonContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogOut = () => {
     setUserIsLoggedIn(false);
@@ -120,15 +122,22 @@ function ResponsiveAppBar() {
             POKE-FIGHT!
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={(e) => handleCloseNavMenu(page)}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            {pages.map((page) => {
+              const pagePath = `/${page.toLowerCase().replace(" ", "-")}`;
+              return (
+                <Button
+                  key={page}
+                  onClick={(e) => handleCloseNavMenu(page)}
+                  sx={{
+                    my: 2,
+                    color: location.pathname === pagePath ? "dark blue" : "white",
+                    display: "block",
+                  }}
+                >
+                  {page}
+                </Button>
+              );
+            })}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
