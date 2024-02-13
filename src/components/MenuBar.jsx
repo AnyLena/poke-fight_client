@@ -130,7 +130,7 @@ function ResponsiveAppBar() {
                   onClick={(e) => handleCloseNavMenu(page)}
                   sx={{
                     my: 2,
-                    color: location.pathname === pagePath ? "dark blue" : "white",
+                    color: location.pathname === pagePath ? "light blue" : "white",
                     display: "block",
                   }}
                 >

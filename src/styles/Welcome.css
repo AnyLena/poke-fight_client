@@ -1,0 +1,54 @@
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome h2 {
+  font-size: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  border: 1px solid #f0f0f0;
+  border-radius: 20px;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-bottom: 2rem;
+}
+
+.left {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.circle {
+  width: 100%;
+  height: 100%;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+}
+
+.initial {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5em;
+  color: #333;
+}
+.name {
+  padding: 1rem;
+}
+p {
+  margin-bottom: 1rem;
+}
