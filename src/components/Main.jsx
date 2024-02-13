@@ -14,6 +14,7 @@ const Main = () => {
   const [open, setOpen] = useState(false);
   const [offset, setOffset] = useState(0);
   const [lang, setLang] = useState("en");
+  const [type, setType] = useState("");
 
   const { user, setUser } = useContext(PokemonContext);
 
@@ -82,23 +83,55 @@ const Main = () => {
           </div>
         }
       >
-       { !loading ? <div className="language">
-          <label htmlFor="lang">Display Pokémon Names in</label>
-          <select
-            name="lang"
-            id="lang"
-            onChange={(event) => setLang(event.target.value)}
-          >
-            <option value="en"><span className="flag"> 🇺🇸 🇬🇧 </span> English</option>
-            <option value="jp"> 🇯🇵 Japanese</option>
-            <option value="ko"> 🇰🇷 Korean</option>
-            <option value="ch"> 🇨🇳 Chinese</option>
-            <option value="de"> 🇩🇪 German</option>
-            <option value="fr"> 🇫🇷 Fench</option>
-            <option value="it"> 🇮🇹 Italian</option>
-            <option value="es"> 🇪🇸 Spanish</option>
-          </select>
-        </div> : null}
+        {!loading ? (
+          <div className="language">
+            <label htmlFor="lang">Display Pokémon Names in</label>
+            <select
+              name="lang"
+              id="lang"
+              onChange={(event) => setLang(event.target.value)}
+            >
+              <option value="en"> 🇺🇸 🇬🇧 English</option>
+              <option value="jp"> 🇯🇵 Japanese</option>
+              <option value="ko"> 🇰🇷 Korean</option>
+              <option value="ch"> 🇨🇳 Chinese</option>
+              <option value="de"> 🇩🇪 German</option>
+              <option value="fr"> 🇫🇷 Fench</option>
+              <option value="it"> 🇮🇹 Italian</option>
+              <option value="es"> 🇪🇸 Spanish</option>
+            </select>
+          </div>
+        ) : null}
+        {!loading ? (
+          <div className="language">
+            <label htmlFor="type">Filter Pokémons by type</label>
+            <select
+              name="type"
+              id="type"
+              onChange={(event) => setType(event.target.value)}
+            >
+              <option style={{backgroundColor: '#a8b820'}} value="Bug">Bug</option>
+              <option style={{backgroundColor: '#705848'}} value="Dark">Dark</option>
+              <option style={{backgroundColor: '#7038f8'}} value="Dragon">Dragon</option>
+              <option style={{backgroundColor: '#f8d030'}} value="Electric">Electric</option>
+              <option style={{backgroundColor: '#ee99ac'}} value="Fairy">Fairy</option>
+              <option style={{backgroundColor: '#c03028'}} value="Fighting">Fighting</option>
+              <option style={{backgroundColor: '#f08030'}} value="Fire">Fire</option>
+              <option style={{backgroundColor: '#a890f0'}} value="Flying">Flying</option>
+              <option style={{backgroundColor: '#705898'}} value="Ghost">Ghost</option>
+              <option style={{backgroundColor: '#78c850'}} value="Grass">Grass</option>
+              <option style={{backgroundColor: '#e0c068'}} value="Ground">Ground</option>
+              <option style={{backgroundColor: '#98d8d8'}} value="Ice">Ice</option>
+              <option style={{backgroundColor: '#a8a878'}} value="Normal">Normal</option>
+              <option style={{backgroundColor: '#a040a0'}} value="Poison">Poison</option>
+              <option style={{backgroundColor: '#f85888'}} value="Psychic">Psychic</option>
+              <option style={{backgroundColor: '#b8a038'}} value="Rock">Rock</option>
+              <option style={{backgroundColor: '#b8b8d0'}} value="Steel">Steel</option>
+              <option style={{backgroundColor: '#7cc7b2'}} value="Stellar">Stellar</option>
+              <option style={{backgroundColor: '#6890f0'}} value="Water">Water</option>
+            </select>
+          </div>
+        ) : null}
         {pokemon && (
           <Grid
             pokemon={pokemon}
