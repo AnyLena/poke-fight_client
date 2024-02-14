@@ -103,9 +103,17 @@ const Battle = () => {
 
   const sendBattleResult = async (result) => {
     const battle = {
-      myPokemon: myPokemon,
+      mypokemon: {
+        id: myPokemon.id,
+        name: myPokemon.name.en,
+        img: myPokemon.sprites.front_default,
+      },
       result: result,
-      opponent: opponentPokemon,
+      opponent: {
+        id: opponentPokemon.id,
+        name: opponentPokemon.name.en,
+        img: opponentPokemon.sprites.front_default,
+      },
       date: new Date(),
     };
     console.log("hello from battle result", battle);

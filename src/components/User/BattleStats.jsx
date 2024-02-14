@@ -16,7 +16,7 @@ const BattleStats = () => {
           Won: {user.battles.filter((battle) => battle.result === "win").length}
         </h2>
         <h2>
-          Lost:{" "}
+          Lost:
           {user.battles.filter((battle) => battle.result === "lose").length}
         </h2>
       </div>
@@ -30,16 +30,16 @@ const BattleStats = () => {
               }}
             >
               <img
-                src={battle.myPokemon.sprites.front_default}
-                alt={battle.myPokemon.name.en}
+                src={battle.mypokemon.img}
+                alt={battle.mypokemon.name}
               />
-              <p>{battle.myPokemon.name.en}</p>
+              <p>{battle.mypokemon.name}</p>
               <p className="vs">VS</p>
               <img
-                src={battle.opponent.sprites.front_default}
-                alt={battle.opponent.name.en}
+                src={battle.opponent.img}
+                alt={battle.opponent.name}
               />
-              <p>{battle.opponent.name.en}</p>
+              <p>{battle.opponent.name}</p>
               <p className="date">
                 {new Date(battle.date).toLocaleDateString("en-US", {
                   day: "numeric",
