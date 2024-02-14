@@ -44,7 +44,7 @@ const Battle = () => {
 
   const getOpponentPokemon = async () => {
     try {
-      const res = await fetch(`${SERVER}/pokemon/${randomNumber(150)}`);
+      const res = await fetch(`${SERVER}/pokemon/${randomNumber(1000)}`);
       const data = await res.json();
       setOpponentPokemon(data);
       setOpponentHp(data.base.hp);
