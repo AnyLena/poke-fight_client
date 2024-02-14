@@ -6,7 +6,7 @@
 .battle {
   height: 100dvh;
   padding: 10px;
-  margin-top: 2rem;
+  margin-top: 6rem;
 
   h1,
   h2,
@@ -87,6 +87,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     max-width: 850px;
+    min-height: 230px;
     margin: auto;
   }
 
