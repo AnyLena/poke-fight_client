@@ -40,7 +40,7 @@ const NavBar = () => {
         }}
       />
       {userIsLoggedIn ? <BottomNavigationAction
-        style={{ color: value === 0 ? "#fff" : "#888" }}
+        style={{ color: value === 1 ? "#fff" : "#888" }}
         className="nav-button"
         label="Pokédex"
         icon={<MdOutlineCatchingPokemon className="icon" />}
@@ -50,7 +50,7 @@ const NavBar = () => {
         disabled={!userIsLoggedIn}
       /> : null }
      {userIsLoggedIn ? <BottomNavigationAction
-        style={{ color: value === 0 ? "#fff" : "#888" }}
+        style={{ color: value === 2 ? "#fff" : "#888" }}
         className="nav-button"
         label="Fight!"
         onClick={() => {

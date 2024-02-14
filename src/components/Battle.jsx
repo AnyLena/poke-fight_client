@@ -159,13 +159,18 @@ const Battle = () => {
     let timeout;
     if (myHp !== null && myHp <= 0) {
       setFightText("FOE defeated TRAINER. TRAINER faints");
+      const newMyHp = (myHp / myPokemon.base.hp) * 100; // last hp rate
+      setTrainerHpRate(newMyHp);
       sendBattleResult("lose"); // send result to server
+      setFightEnabled(false);
       timeout = setTimeout(() => {
         setBattleStatus("inactive");
       }, 5000);
     }
     if (opponentHp !== null && opponentHp <= 0) {
       if (newOpponent) {
+        const newOpponentHpRate = (opponentHp / opponentPokemon.base.hp) * 100; // last hp rate
+        setOpponentHpRate(newOpponentHpRate);
         setBattleStatus("catching");
         setNewOpponent(false);
       } else {
@@ -283,7 +288,7 @@ const Battle = () => {
               <div className="health-container hp-opponent">
                 <p className="health-hp">HP</p>
                 <div className="health-back"></div>
-                {opponentHpRate ? (
+                {typeof opponentHpRate === 'number' ? (
                   <div
                     style={{ width: `${opponentHpRate}%` }}
                     className="health-bar"
@@ -331,7 +336,7 @@ const Battle = () => {
               <div className="health-container hp-triner">
                 <p className="health-hp">HP</p>
                 <div className="health-back"></div>
-                {trainerHpRate ? (
+                {typeof trainerHpRate === 'number' ? (
                   <div
                     style={{ width: `${trainerHpRate}%` }}
                     className="health-bar"
