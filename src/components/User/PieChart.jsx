@@ -2,7 +2,7 @@ import * as React from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
 
 export default function BasicPie({ user }) {
-  const palette = ["#FFDEAD", "#FFB347", "#FF7F50"];
+  const palette = ["#FFDEAD", "#cecece", "#000000"];
   const data = [
     {
       value: user.seen.length - user.pokemons.length,
@@ -15,7 +15,7 @@ export default function BasicPie({ user }) {
 
   return (
     <div className="piechart">
-      <PieChart series={[{ data: data }]} width={400} height={200} />
+      <PieChart series={[{ data: data }]} width={450} height={250} />
     </div>
   );
 }

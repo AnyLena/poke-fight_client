@@ -5,10 +5,20 @@
   justify-content: center;
 }
 
-.welcome h2 {
+.welcome h1 {
   font-size: 2rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  font-family: "Pokemon Solid";
+  text-align: center;
+  font-size: 40px;
+  -webkit-text-stroke: 3px #2c70b7;
+  letter-spacing: 4px;
+  color: #ffcb05;
+}
+
+.welcome h2 {
+  margin-bottom: 10px;
 }
 
 .welcome .profile {
@@ -36,19 +46,49 @@
   height: 100%;
   background-color: #f0f0f0;
   border-radius: 50%;
+  overflow: hidden;
+  position: relative;
 }
 
-.welcome .initial {
+.welcome .profile img {
+  width: 150px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 2.5em;
-  color: #333;
 }
+
 .welcome .name {
   padding: 1rem;
 }
 .welcome p {
   margin-bottom: 1rem;
+}
+
+.welcome .badges img {
+  width: 70px;
+  margin: 0 30px;
+}
+
+.badge-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+
+  p {
+    margin: 0;
+  }
+  h3 {
+    width: 300px;
+  }
+}
+
+.pie-chart {
+  margin-bottom: 50px;
+
+  h2.dex {
+    margin-top: 70px;
+    margin-bottom: 30px;
+  }
 }

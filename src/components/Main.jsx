@@ -84,7 +84,7 @@ const Main = () => {
         }
       >
         {!loading ? (
-          <div className="language">
+          <div className="select-box">
             <label htmlFor="lang">Display Pokémon Names in</label>
             <select
               name="lang"
@@ -103,7 +103,7 @@ const Main = () => {
           </div>
         ) : null}
         {!loading ? (
-          <div className="language">
+          <div className="select-box">
             <label htmlFor="type">Filter Pokémons by type</label>
             <select
               name="type"
