@@ -86,12 +86,11 @@
     margin: 20px;
   }
   h1 {
-    font-size: 2rem;
+    font-size: 3rem;
     margin-top: 2rem;
     margin-bottom: 2rem;
     font-family: "Pokemon Solid";
     text-align: center;
-    font-size: 40px;
     -webkit-text-stroke: 3px #2c70b7;
     letter-spacing: 4px;
     color: #ffcb05;
