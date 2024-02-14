@@ -102,7 +102,7 @@ const Main = () => {
             </select>
           </div>
         ) : null}
-        {!loading ? (
+        {/* {!loading ? (
           <div className="select-box">
             <label htmlFor="type">Filter Pokémons by type</label>
             <select
@@ -131,7 +131,7 @@ const Main = () => {
               <option style={{backgroundColor: '#6890f0'}} value="Water">Water</option>
             </select>
           </div>
-        ) : null}
+        ) : null} */}
         {pokemon && (
           <Grid
             pokemon={pokemon}
