@@ -46,3 +46,12 @@
 .date, .result {
     margin-left: auto;
 }
+
+.battlestats h1 {
+  font-size: 3rem;
+  text-align: center;
+  font-family: "Pokemon Solid"; 
+  -webkit-text-stroke: 3px #2c70b7;
+  letter-spacing: 4px;
+  color: #ffcb05;
+}

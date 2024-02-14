@@ -11,6 +11,7 @@ const BattleStats = () => {
 
   return (
     <div className="battlestats">
+      <h1>My Battle Stats</h1>
       <div className="won-lost">
         <h2>
           Won: {user.battles.filter((battle) => battle.result === "win").length}

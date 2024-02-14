@@ -34,6 +34,19 @@ const getText = (badge) => {
   }
 };
 
+const getVerb = (badge) => {
+    switch (badge) {
+      case "dex":
+        return "seen";
+      case "fight":
+        return "batteled";
+      case "catch":
+        return "caught";
+      default:
+        return "nix";
+    }
+  };
+
 const Badges = ({ badge, number, mastery }) => {
   return (
     <div className="badge-section">
@@ -44,7 +57,7 @@ const Badges = ({ badge, number, mastery }) => {
       <div>
         <h3>{getText(badge)}-Mastery: {mastery}.</h3>
         <p>
-          Pokémons registered: {number}
+          Pokémons {getVerb(badge)}: {number}
           {number === 1 ? " pokémon" : " pokémons"}
         </p>
       </div>
