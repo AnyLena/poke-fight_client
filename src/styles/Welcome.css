@@ -80,9 +80,11 @@
   p {
     margin: 0;
     margin-top: .5rem;
+    text-align: left;
   }
   h3 {
     width: 300px;
+    text-align: left;
   }
 }
 

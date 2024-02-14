@@ -44,7 +44,7 @@ const Grid = ({pokemon, user, lang, handleClick, key}) => {
                 ? poke.name.other[6].name
                 : lang === "it"
                 ? poke.name.other[7].name
-                : poke.name.en}
+                : poke.name.en || poke.name}
             </h2>
           </div>
         ))

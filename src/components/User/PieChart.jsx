@@ -7,10 +7,10 @@ export default function BasicPie({ user }) {
     {
       value: user.seen.length - user.pokemons.length,
       fill: palette[0],
-      label: "Seen",
+      label: "Escaped",
     }, // seen but not caught
     { value: user.pokemons.length, fill: palette[1], label: "Caught" }, // seen and caught
-    { value: 150 - user.seen.length, fill: palette[2], label: "Not seen yet" }, // not seen yet
+    { value: 150 - user.seen.length, fill: palette[2], label: "Unknown" }, // not seen yet
   ];
 
   return (
