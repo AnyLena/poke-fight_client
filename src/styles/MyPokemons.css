@@ -7,11 +7,11 @@
 
 .allpokes > h2, .myteam > h2 {
     text-align: left;
-    padding: 3rem;
+
     padding-bottom: 0;
     font-family: "Pokemon Solid";
     text-align: center;
-    font-size: 40px;
+    font-size: 3rem;
     -webkit-text-stroke: 3px #2c70b7;
     letter-spacing: 4px;
     color: #ffcb05;
