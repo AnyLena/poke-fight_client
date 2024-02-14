@@ -46,13 +46,20 @@ const MyPokemons = () => {
     }
   }, [user]);
 
-  const updateUser = async (newTeam) => {
+  const updateUser = async (pokemon, action) => {
     try {
       await axios.put(`${SERVER}/user/${user._id}`, {
-        ...user,
-        team: newTeam,
+        action,
+        pokemon,
       });
-      setUser({ ...user, team: newTeam });
+      if (action === "add") {
+        setUser({ ...user, team: [...user.team, pokemon] });
+      } else {
+        setUser({
+          ...user,
+          team: user.team.filter((p) => p.id !== pokemon.id),
+        });
+      }
       console.log("Updating user", user._id, newTeam);
     } catch (error) {
       console.log(error);
@@ -65,7 +72,7 @@ const MyPokemons = () => {
       const newTeam = [...team, poke];
       setTeam(newTeam);
       if (userIsLoggedIn) {
-        await updateUser(newTeam);
+        await updateUser(poke, "add");
       }
     } else if (team.some((p) => p.id === poke.id)) {
       setMessage("You already have this Pokémon in your team");
@@ -82,7 +89,7 @@ const MyPokemons = () => {
     const newTeam = team.filter((p) => p.id !== poke.id);
     setTeam(newTeam);
     if (userIsLoggedIn) {
-      await updateUser(newTeam);
+      await updateUser(poke, "remove");
     }
   };
 

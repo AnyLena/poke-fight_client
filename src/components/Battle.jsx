@@ -101,6 +101,30 @@ const Battle = () => {
     }
   };
 
+  const sendBattleResult = async (result) => {
+    const battle = {
+      myPokemon: myPokemon,
+      result: result,
+      opponent: opponentPokemon,
+      date: new Date(),
+    };
+    console.log("hello from battle result", battle);
+    try {
+      const response = fetch(`${SERVER}/user/${user._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ battle: battle }),
+      });
+      setUser((prev) => {
+        return { ...prev, battles: [...prev.battles, battle] };
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
     setLoading(false);
     setBattleStatus("inactive");
@@ -127,6 +151,7 @@ const Battle = () => {
     let timeout;
     if (myHp !== null && myHp <= 0) {
       setFightText("FOE defeated TRAINER. TRAINER faints");
+      sendBattleResult("lose"); // send result to server
       timeout = setTimeout(() => {
         setBattleStatus("inactive");
       }, 5000);
@@ -150,6 +175,7 @@ const Battle = () => {
     let timeout;
     if (battleStatus === "catching") {
       setFightText("TRAINER defeats FOE. TRAINER wins!");
+      sendBattleResult("win"); // send result to server
       timeout = setTimeout(() => {
         catchPokemon();
       }, 2500);
