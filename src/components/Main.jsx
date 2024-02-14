@@ -22,7 +22,7 @@ const Main = () => {
   const handleClose = () => setOpen(false);
 
   const getPokemon = async () => {
-    const limit = 50;
+    const limit = 25;
     try {
       const res = await fetch(
         `${SERVER}/pokemon?offset=${offset}&limit=${limit}`
@@ -39,7 +39,7 @@ const Main = () => {
       setLoading(true);
       const res = await getPokemon();
       setPokemon((prev) => [...prev, ...res]);
-      setOffset((prev) => prev + 50);
+      setOffset((prev) => prev + 25);
     } catch (error) {
       console.log(error);
     } finally {
@@ -76,7 +76,7 @@ const Main = () => {
       <InfiniteScroll
         pageStart={0}
         loadMore={loadMorePokes}
-        hasMore={offset <= 950}
+        hasMore={offset <= 125}
         loader={
           <div className="loader" key={0}>
             <div className="pokeball"></div>
