@@ -37,8 +37,8 @@
 }
 
 .battlestats img {
-  width: 50px; /* adjust as needed */
-  height: 50px; /* adjust as needed */
+  width: 50px; 
+  height: 50px; 
 }
 .vs {
     font-size: 1.5rem;
