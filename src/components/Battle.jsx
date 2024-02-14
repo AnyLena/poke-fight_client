@@ -362,8 +362,8 @@ const Battle = () => {
                 {user
                   ? user.team.map((poke) => (
                       <option value={poke.id}>
-                        {poke.name.slice(0, 1).toUpperCase() +
-                          poke.name.slice(1)}
+                        {poke.name.en.slice(0, 1).toUpperCase() +
+                          poke.name.en.slice(1)}
                       </option>
                     ))
                   : null}
