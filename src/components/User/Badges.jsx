@@ -39,7 +39,7 @@ const getVerb = (badge) => {
       case "dex":
         return "seen";
       case "fight":
-        return "batteled";
+        return "battled";
       case "catch":
         return "caught";
       default:

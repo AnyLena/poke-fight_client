@@ -17,7 +17,7 @@ import { GiPunchBlast } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-const pages = ["My Pokemons", "Battle Stats", "About"];
+const pages = ["My Pokémons", "Battle Stats", "About"];
 const settings = ["Profile", "Logout"];
 
 function ResponsiveAppBar() {
@@ -27,6 +27,9 @@ function ResponsiveAppBar() {
     useContext(PokemonContext);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const artworkUrl =
+  user?.team?.[0]?.sprites?.other?.["official-artwork"]?.front_default;
 
   const handleLogOut = () => {
     setUserIsLoggedIn(false);
@@ -43,7 +46,7 @@ function ResponsiveAppBar() {
 
   const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
-    if (page === "My Pokemons") {
+    if (page === "My Pokémons") {
       navigate("/my-pokemons");
     } else if (page === "Battle Stats") {
       navigate("/battle-stats");
@@ -143,7 +146,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user.username} src="/static/images/avatar/2.jpg" />
+                <Avatar alt={user.username} src={artworkUrl} />
               </IconButton>
             </Tooltip>
             <Menu
