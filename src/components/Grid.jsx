@@ -12,7 +12,8 @@ const Grid = ({pokemon, user, lang, handleClick, key}) => {
             style={{
               background: `linear-gradient(to right, ${getTypeColor(
                 poke.type[0]
-              )} 50%, ${getTypeColor(poke.type[1] || poke.type[0])} 50%)`,
+              )} 50%, ${getTypeColor(poke.type[1] || poke.type[0])} 50%)`, 
+              opacity: user.seen.includes(poke.id) ? 1 : 0.7,
             }}
           >
             <div className="dex-img-container">
