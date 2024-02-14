@@ -234,7 +234,6 @@ const Battle = () => {
 
   return (
     <div className="battle">
-      <h1 className="display-none">Battle</h1>
       {loading && <div className="pokeball"></div>}
       <div>
         {/*ANIMATION FOR OPPONENT PKMN */}

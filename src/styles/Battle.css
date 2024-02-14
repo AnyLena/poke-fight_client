@@ -1,11 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 .display-none {
-    display: none;
-  }
+  display: none;
+}
 
 .battle {
   height: 100dvh;
   padding: 10px;
+  margin-top: 2rem;
 
   h1,
   h2,
@@ -28,8 +29,6 @@
     text-align: right;
     margin-top: 5px;
   }
-  
-  
 
   .stat-box {
     justify-self: start;
@@ -79,7 +78,7 @@
     width: 100%;
     border-radius: 50px;
     margin: 2px 0px 3px 3px;
-    transition: all .5s ease-in-out
+    transition: all 0.5s ease-in-out;
   }
 
   .opponent,
@@ -130,17 +129,33 @@
     border-radius: 20px;
     border: 10px solid #cc4527;
     z-index: 10;
-    height: 150px;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     max-width: 850px;
     margin: auto;
+    display: flex;
+    flex-wrap: wrap;
   }
   .text-box p {
     color: #eaf5fa;
     text-shadow: 2px 2px 1px #4e5461;
     font-size: 20px;
+    flex: 1 1 800px;
+    padding: 0.5rem;
+    padding-top: 1rem;
+  }
+  .text-box select {
+    background-color: #679e9b;
+    border-radius: 5px;
+    border: none;
+    z-index: 10;
+    padding: 0.5rem;
+    margin: 2rem;
+    color: #eaf5fa;
+    font-size: 1rem;
+    text-shadow: 2px 2px 1px #4e5461;
   }
 
   button {
@@ -157,5 +172,40 @@
   button:hover {
     color: #4e5461;
     text-shadow: 2px 2px 1px #eaf5fa;
+  }
 }
+
+@media screen and (max-width: 700px) {
+  .battle {
+    margin: 0;
+  }
+  .opponent {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr; 
+  }
+  .opponent > .stat-box {
+    grid-area: 1 / 1 / 2 / 2; 
+  }
+  .opponent > img,
+  .opponent > .circle {
+    grid-area: 2/1/2/2 !important;
+    margin: 1rem;
+  }
+  .opponent > img {
+    margin: 0 2rem 1rem auto;
+    margin-top: -2rem;
+  }
+  .trainer > .stat-box {
+    grid-area: 1/1/2/2 !important;
+  }
+  .trainer > img,
+  .trainer > .circle {
+    grid-area: 2/1/2/2 !important;
+    margin: 1rem;
+  }
+  .trainer > .circle {
+    margin-top:4rem;;
+  }
+
 }
