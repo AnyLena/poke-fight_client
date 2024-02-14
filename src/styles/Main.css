@@ -72,7 +72,7 @@
   margin: 10px 0;
 }
 
-.language {
+.select-box {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   font-size: 20px;
@@ -84,18 +84,19 @@
   flex-wrap: wrap;
   gap: 1rem;
 
+  select {
+    margin: 0 10px;
+    padding: 0 10px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+  }
+
+  select:hover {
+    box-shadow: 1px 1px 10px #6f3e90;
+  }
 }
 
-.language select {
-  margin: 0 10px;
-  padding: 0 10px;
-  font-size: 20px;
-  font-weight: bold;
-  background-color: transparent;
-  border: none;
-  border-radius: 5px;
-}
 
-.language select:hover {
-  box-shadow: 1px 1px 10px #6f3e90;
-}

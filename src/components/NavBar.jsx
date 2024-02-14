@@ -33,16 +33,14 @@ const NavBar = () => {
       <BottomNavigationAction
         style={{ color: value === 0 ? "#fff" : "#888" }}
         className="nav-button"
-        label="Login"
+        label={userIsLoggedIn ? "My Profile" : "Login"}
         icon={<FaRegUserCircle className="icon" />}
         onClick={() => {
           navigate("/");
         }}
       />
-      <BottomNavigationAction
-        style={{
-          color: !userIsLoggedIn ? "#555" : value === 1 ? "#fff" : "#888",
-        }}
+      {userIsLoggedIn ? <BottomNavigationAction
+        style={{ color: value === 0 ? "#fff" : "#888" }}
         className="nav-button"
         label="Pokédex"
         icon={<MdOutlineCatchingPokemon className="icon" />}
@@ -50,11 +48,9 @@ const NavBar = () => {
           navigate("/pokedex");
         }}
         disabled={!userIsLoggedIn}
-      />
-      <BottomNavigationAction
-        style={{
-          color: !userIsLoggedIn ? "#555" : value === 2 ? "#fff" : "#888",
-        }}
+      /> : null }
+     {userIsLoggedIn ? <BottomNavigationAction
+        style={{ color: value === 0 ? "#fff" : "#888" }}
         className="nav-button"
         label="Fight!"
         onClick={() => {
@@ -62,7 +58,7 @@ const NavBar = () => {
         }}
         icon={<GiPunchBlast className="icon" />}
         disabled={!userIsLoggedIn}
-      />
+      />: null}
       <BottomNavigationAction
         style={{ color: value === 3 ? "#FFD700" : "#888" }}
         className="nav-button"
