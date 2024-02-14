@@ -61,13 +61,26 @@ const MyPokemons = () => {
 
   const handleAdd = async (poke) => {
     setSelectedPokemon(poke);
-    if (team.length < 4 && !team.some((p) => p.id === poke.id)) {
-      const newTeam = [...team, poke];
+    const thePoke = {
+      id: poke.id,
+      name: poke.name.en,
+      sprites: {
+        other: {
+          "official-artwork": {
+            front_default: poke.sprites.other["official-artwork"].front_default,
+          },
+        },
+      },
+      type: poke.type,
+    };
+
+    if (team.length < 4 && !team.some((p) => p.id === thePoke.id)) {
+      const newTeam = [...team, thePoke];
       setTeam(newTeam);
       if (userIsLoggedIn) {
         await updateUser(newTeam);
       }
-    } else if (team.some((p) => p.id === poke.id)) {
+    } else if (team.some((p) => p.id === thePoke.id)) {
       setMessage("You already have this Pokémon in your team");
     } else {
       setMessage("You can only have 4 Pokémon in your team");
@@ -79,7 +92,20 @@ const MyPokemons = () => {
       setMessage("You need at least one Pokémon in your team");
       return;
     }
-    const newTeam = team.filter((p) => p.id !== poke.id);
+    const thePoke = {
+      id: poke.id,
+      name: poke.name.en,
+      type: poke.type,
+      sprites: {
+        other: {
+          "official-artwork": {
+            front_default: poke.sprites.other["official-artwork"].front_default,
+          },
+        },
+      },
+    };
+
+    const newTeam = team.filter((p) => p.id !== thePoke.id);
     setTeam(newTeam);
     if (userIsLoggedIn) {
       await updateUser(newTeam);

@@ -101,6 +101,38 @@ const Battle = () => {
     }
   };
 
+  const sendBattleResult = async (result) => {
+    const battle = {
+      mypokemon: {
+        id: myPokemon.id,
+        name: myPokemon.name.en,
+        img: myPokemon.sprites.front_default,
+      },
+      result: result,
+      opponent: {
+        id: opponentPokemon.id,
+        name: opponentPokemon.name.en,
+        img: opponentPokemon.sprites.front_default,
+      },
+      date: new Date(),
+    };
+    console.log("hello from battle result", battle);
+    try {
+      const response = fetch(`${SERVER}/user/${user._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ battle: battle }),
+      });
+      setUser((prev) => {
+        return { ...prev, battles: [...prev.battles, battle] };
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
     setLoading(false);
     setBattleStatus("inactive");
@@ -127,6 +159,7 @@ const Battle = () => {
     let timeout;
     if (myHp !== null && myHp <= 0) {
       setFightText("FOE defeated TRAINER. TRAINER faints");
+      sendBattleResult("lose"); // send result to server
       timeout = setTimeout(() => {
         setBattleStatus("inactive");
       }, 5000);
@@ -150,6 +183,7 @@ const Battle = () => {
     let timeout;
     if (battleStatus === "catching") {
       setFightText("TRAINER defeats FOE. TRAINER wins!");
+      sendBattleResult("win"); // send result to server
       timeout = setTimeout(() => {
         catchPokemon();
       }, 2500);
@@ -328,8 +362,8 @@ const Battle = () => {
                 {user
                   ? user.team.map((poke) => (
                       <option value={poke.id}>
-                        {poke.name.en.slice(0, 1).toUpperCase() +
-                          poke.name.en.slice(1)}
+                        {poke.name.slice(0, 1).toUpperCase() +
+                          poke.name.slice(1)}
                       </option>
                     ))
                   : null}
