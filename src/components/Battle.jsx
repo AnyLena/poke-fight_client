@@ -44,7 +44,7 @@ const Battle = () => {
 
   const getOpponentPokemon = async () => {
     try {
-      const res = await fetch(`${SERVER}/pokemon/${randomNumber(1000)}`);
+      const res = await fetch(`${SERVER}/pokemon/${randomNumber(150)}`);
       const data = await res.json();
       setOpponentPokemon(data);
       setOpponentHp(data.base.hp);
@@ -234,10 +234,22 @@ const Battle = () => {
     // My turn
     setFightEnabled(false);
     setNewOpponent(true);
-    const myDamage = calculateDamage(myPokemon, opponentPokemon);
-    // console.log("My Damage", myDamage);
+    let myDamage = calculateDamage(myPokemon, opponentPokemon);
     let trainerText = "You inflict " + myDamage + " DAMAGE";
+
+    // 5% chance of critical hit and double damage and 5% chance of miss and 0 damage
+    const critical = Math.random();
+    const miss = Math.random();
+    if (critical < 0.05) {
+      myDamage = myDamage * 2;
+      trainerText = "Critical Hit! You inflict " + myDamage + " DAMAGE";
+    }
+    if (miss < 0.05) {
+      myDamage = 0;
+      trainerText = "You miss!";
+    }
     setFightText(trainerText);
+
     const newOpponentHp = opponentHp - myDamage;
     const newOpponentHpRate = (newOpponentHp / opponentPokemon.base.hp) * 100;
     newOpponentHp <= 0 ? setOpponentHp(0) : setOpponentHp(newOpponentHp);
@@ -250,10 +262,17 @@ const Battle = () => {
     let timeout;
     if (opponentHp > 0) {
       setTimeout(() => {
-        const opponentDamage = calculateDamage(opponentPokemon, myPokemon);
-        // console.log("Opponent Damage", opponentDamage);
+        let opponentDamage = calculateDamage(opponentPokemon, myPokemon);
         let opponentText = `Foe ${opponentPokemon.name.en.toUpperCase()} inflicts ${opponentDamage} DAMAGE`;
+
+        // 10% chance of miss and 0 damage
+        const miss = Math.random();
+        if (miss < 0.10) {
+          opponentDamage = 0;
+          opponentText = `Foe ${opponentPokemon.name.en.toUpperCase()} misses!`;
+        }
         setFightText(opponentText);
+
         const newMyHp = myHp - opponentDamage;
         const newTrainerHpRate = (newMyHp / myPokemon.base.hp) * 100;
         newMyHp <= 0 ? setMyHp(0) : setMyHp(newMyHp);
@@ -288,7 +307,7 @@ const Battle = () => {
               <div className="health-container hp-opponent">
                 <p className="health-hp">HP</p>
                 <div className="health-back"></div>
-                {typeof opponentHpRate === 'number' ? (
+                {typeof opponentHpRate === "number" ? (
                   <div
                     style={{ width: `${opponentHpRate}%` }}
                     className="health-bar"
@@ -336,7 +355,7 @@ const Battle = () => {
               <div className="health-container hp-triner">
                 <p className="health-hp">HP</p>
                 <div className="health-back"></div>
-                {typeof trainerHpRate === 'number' ? (
+                {typeof trainerHpRate === "number" ? (
                   <div
                     style={{ width: `${trainerHpRate}%` }}
                     className="health-bar"
