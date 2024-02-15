@@ -2,12 +2,13 @@ import { useState, useEffect, useContext } from "react";
 import "../styles/Main.css";
 import PokemonModal from "./PokemonModal";
 import "../styles/Pokeball.css";
-import { SERVER } from "../constants/server";
+
 import InfiniteScroll from "react-infinite-scroller";
 import { PokemonContext } from "../provider/PokemonProvider";
 import Grid from "./Grid";
 
 const Main = () => {
+  const SERVER = import.meta.env.SERVER
   const [pokemon, setPokemon] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedPokemon, setSelectedPokemon] = useState(null);

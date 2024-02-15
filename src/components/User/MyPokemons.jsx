@@ -1,6 +1,6 @@
 import { PokemonContext } from "../../provider/PokemonProvider";
 import { useContext, useState, useEffect } from "react";
-import { SERVER } from "../../constants/server";
+
 import InfiniteScroll from "react-infinite-scroller";
 import axios from "axios";
 import Grid from "../Grid";
@@ -8,6 +8,7 @@ import "../../styles/MyPokemons.css";
 import Message from "../Form/Message";
 
 const MyPokemons = () => {
+  const SERVER = import.meta.env.SERVER
   const { user, setUser, userIsLoggedIn } = useContext(PokemonContext);
   const [pokemon, setPokemon] = useState([]);
   const [offset, setOffset] = useState(0);

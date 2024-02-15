@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SERVER } from "../constants/server";
+
 import "../styles/HighScores.css";
 
 const HighScores = () => {
@@ -7,6 +7,7 @@ const HighScores = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchUsers = async () => {
+    const SERVER = import.meta.env.SERVER
     try {
       setLoading(true);
       const res = await fetch(`${SERVER}/user/all`);

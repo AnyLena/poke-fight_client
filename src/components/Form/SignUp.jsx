@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import { PokemonContext } from "../../provider/PokemonProvider";
-import { SERVER } from "../../constants/server";
 import axios from "axios";
 import "../../styles/Form.css";
 import UserAndPassword from "./UserAndPassword";
@@ -20,6 +19,7 @@ const createUser = async (user, setMessage, setErrorMessage) => {
 };
 
 const SignUp = ({setMessage, setErrorMessage, submitted, setSubmitted}) => {
+  const SERVER = import.meta.env.SERVER
   const [input, setInput] = useState({
     username: "",
     password: "",

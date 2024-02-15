@@ -1,10 +1,11 @@
 import { useState, useEffect, useContext } from "react";
-import { SERVER } from "../constants/server";
 import "../styles/Battle.css";
 import "../styles/Pokeball.css";
 import { PokemonContext } from "../provider/PokemonProvider";
 
 const Battle = () => {
+
+  const SERVER = import.meta.env.SERVER
   // for User
   const { user, setUser } = useContext(PokemonContext);
   //for Pokemon stats

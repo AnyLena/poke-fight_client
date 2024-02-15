@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { PokemonContext } from "../../provider/PokemonProvider";
 import { Button } from "@mui/material";
-import { SERVER } from "../../constants/server";
 import UserAndPassword from "./UserAndPassword";
 import axios from "axios";
 import "../../styles/Form.css";
+
 
 const fetchUser = async (
   input,
@@ -28,6 +28,7 @@ const fetchUser = async (
 };
 
 const LogIn = ({ setMessage, setErrorMessage, submitted, setSubmitted }) => {
+  const SERVER = import.meta.env.SERVER
   const { setUser, userIsLoggedIn, setUserIsLoggedIn } =
     useContext(PokemonContext);
   const [input, setInput] = useState({});
