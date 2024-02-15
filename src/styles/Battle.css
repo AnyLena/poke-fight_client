@@ -112,7 +112,9 @@
   .opponent img {
     grid-area: 1/2/2/3;
   }
-
+  .vibrate {
+    animation: vibrate 0.15s infinite;
+  }
   .opponent .circle {
     grid-area: 1/2/2/3;
   }
@@ -174,6 +176,31 @@
   button:hover {
     color: #4e5461;
     text-shadow: 2px 2px 1px #eaf5fa;
+  }
+}
+.battle button:disabled {
+  background-color: #525252;
+  color: #f4f4d5;
+  cursor: not-allowed;
+}
+@keyframes vibrate {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-5px, 5px);
+  }
+  40% {
+    transform: translate(-5px, -5px);
+  }
+  60% {
+    transform: translate(5px, 5px);
+  }
+  80% {
+    transform: translate(5px, -5px);
+  }
+  100% {
+    transform: translate(0);
   }
 }
 

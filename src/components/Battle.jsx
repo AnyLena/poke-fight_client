@@ -20,10 +20,13 @@ const Battle = () => {
   const [fightEnabled, setFightEnabled] = useState(true);
   const [trainerAttack, setTrainerAttack] = useState(true);
   const [newOpponent, setNewOpponent] = useState(true);
+  const [specialAttackUsed, setSpecialAttackUsed] = useState(false);
   // for battle animations
   const [fightText, setFightText] = useState("");
   const [opponentHpRate, setOpponentHpRate] = useState(100);
   const [trainerHpRate, setTrainerHpRate] = useState(100);
+  const [vibrate, setVibrate] = useState(false);
+  const [vibrateOpponent, setVibrateOpponent] = useState(false);
 
   const randomNumber = (max) => Math.floor(Math.random() * max) + 1;
 
@@ -189,6 +192,9 @@ const Battle = () => {
     if (battleStatus === "catching") {
       setFightText("TRAINER defeats FOE. TRAINER wins!");
       sendBattleResult("win"); // send result to server
+      setSpecialAttackUsed(false);
+      setVibrate(false);
+      setVibrateOpponent(false);
       timeout = setTimeout(() => {
         catchPokemon();
       }, 2500);
@@ -199,6 +205,9 @@ const Battle = () => {
     }
     if (battleStatus === "inactive") {
       setMyPokemonId(0);
+      setSpecialAttackUsed(false);
+      setVibrate(false);
+      setVibrateOpponent(false);
     }
     return () => {
       clearTimeout(timeout);
@@ -220,21 +229,30 @@ const Battle = () => {
   }, [myPokemon]);
 
   // CALCULATING DAMAGE
-  const calculateDamage = (attacker, defender) => {
-    let damage = Math.floor(
-      (20 + attacker.base.attack - defender.base.defense) /
-        (Math.random() * 2 + 1)
-    );
+  const calculateDamage = (attacker, defender, special) => {
+    let damage;
+    if (special === "special" && specialAttackUsed === false) {
+      damage = Math.floor(
+        (20 + attacker.base.special_attack - defender.base.special_defense) /
+          (Math.random() * 2 + 1)
+      );
+      setSpecialAttackUsed(true);
+    } else {
+      damage = Math.floor(
+        (20 + attacker.base.attack - defender.base.defense) /
+          (Math.random() * 2 + 1)
+      );
+    }
     damage <= 5 ? (damage = Math.floor(Math.random() * 4) + 1) : damage;
     return damage;
   };
 
   // SINGE FIGHT ROUND LOGIC
-  const startFight = () => {
+  const startFight = (special = null) => {
     // My turn
     setFightEnabled(false);
     setNewOpponent(true);
-    let myDamage = calculateDamage(myPokemon, opponentPokemon);
+    let myDamage = calculateDamage(myPokemon, opponentPokemon, special);
     let trainerText = "You inflict " + myDamage + " DAMAGE";
 
     // 5% chance of critical hit and double damage and 5% chance of miss and 0 damage
@@ -247,6 +265,11 @@ const Battle = () => {
     if (miss < 0.05) {
       myDamage = 0;
       trainerText = "You miss!";
+    } else {
+      setVibrateOpponent(true); // vibrate animation 
+      setTimeout(() => {
+        setVibrateOpponent(false);
+      }, 800);
     }
     setFightText(trainerText);
 
@@ -267,9 +290,14 @@ const Battle = () => {
 
         // 10% chance of miss and 0 damage
         const miss = Math.random();
-        if (miss < 0.10) {
+        if (miss < 0.1) {
           opponentDamage = 0;
           opponentText = `Foe ${opponentPokemon.name.en.toUpperCase()} misses!`;
+        } else {
+          setVibrate(true); // vibrate animation
+          setTimeout(() => {
+            setVibrate(false);
+          }, 800);
         }
         setFightText(opponentText);
 
@@ -322,6 +350,7 @@ const Battle = () => {
             </div>
             {battleStatus === "active" ? (
               <img
+                className={vibrateOpponent ? "vibrate" : ""}
                 src={
                   opponentPokemon.sprites.other.showdown.front_default ||
                   opponentPokemon.sprites.front_default
@@ -339,6 +368,7 @@ const Battle = () => {
           <section className="trainer">
             {battleStatus === "active" ? (
               <img
+                className={vibrate ? "vibrate" : ""}
                 src={
                   myPokemon.sprites.other.showdown.back_default ||
                   myPokemon.sprites.front_default
@@ -399,7 +429,16 @@ const Battle = () => {
         </section>
 
         {battleStatus === "active" && fightEnabled ? (
-          <button onClick={startFight}>Fight</button>
+          <>
+            <button onClick={startFight}>Fight</button>
+            <button
+              className="special-attack-btn"
+              disabled={specialAttackUsed}
+              onClick={() => startFight("special")}
+            >
+              Special Attack
+            </button>
+          </>
         ) : null}
         {battleStatus === "active" && fightEnabled ? (
           <button onClick={fleeFight}>Flee</button>
