@@ -17,7 +17,7 @@ import { GiPunchBlast } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-const pages = ["My Pokémons", "Battle Stats", "About"];
+const pages = ["My Pokemons", "Battle Stats", "About"];
 const settings = ["Profile", "Logout"];
 
 function ResponsiveAppBar() {
@@ -46,7 +46,7 @@ function ResponsiveAppBar() {
 
   const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
-    if (page === "My Pokémons") {
+    if (page === "My Pokemons") {
       navigate("/my-pokemons");
     } else if (page === "Battle Stats") {
       navigate("/battle-stats");
@@ -133,7 +133,7 @@ function ResponsiveAppBar() {
                   onClick={(e) => handleCloseNavMenu(page)}
                   sx={{
                     my: 2,
-                    color: location.pathname === pagePath ? "light blue" : "white",
+                    color: location.pathname === pagePath ? "#b5e9f7" : "white",
                     display: "block",
                   }}
                 >

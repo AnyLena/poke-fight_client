@@ -266,7 +266,7 @@ const Battle = () => {
       myDamage = 0;
       trainerText = "You miss!";
     } else {
-      setVibrateOpponent(true);
+      setVibrateOpponent(true); // vibrate animation 
       setTimeout(() => {
         setVibrateOpponent(false);
       }, 800);
@@ -294,7 +294,7 @@ const Battle = () => {
           opponentDamage = 0;
           opponentText = `Foe ${opponentPokemon.name.en.toUpperCase()} misses!`;
         } else {
-          setVibrate(true);
+          setVibrate(true); // vibrate animation
           setTimeout(() => {
             setVibrate(false);
           }, 800);
