@@ -8,7 +8,7 @@ import "../../styles/MyPokemons.css";
 import Message from "../Form/Message";
 
 const MyPokemons = () => {
-  const SERVER = import.meta.env.SERVER
+  const SERVER = import.meta.env.VITE_SERVER
   const { user, setUser, userIsLoggedIn } = useContext(PokemonContext);
   const [pokemon, setPokemon] = useState([]);
   const [offset, setOffset] = useState(0);

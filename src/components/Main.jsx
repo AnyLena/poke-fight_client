@@ -8,7 +8,7 @@ import { PokemonContext } from "../provider/PokemonProvider";
 import Grid from "./Grid";
 
 const Main = () => {
-  const SERVER = import.meta.env.SERVER
+  const SERVER = import.meta.env.VITE_SERVER
   const [pokemon, setPokemon] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedPokemon, setSelectedPokemon] = useState(null);

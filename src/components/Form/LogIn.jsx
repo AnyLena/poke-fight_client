@@ -13,12 +13,15 @@ const fetchUser = async (
   setUserIsLoggedIn,
   setErrorMessage
 ) => {
+  const SERVER = import.meta.env.VITE_SERVER
+  console.log(SERVER)
   try {
     const response = await axios.get(
       `${SERVER}/user?username=${input.username}&password=${input.password}`
     );
     setMessage(`Welcome back, ${response.data.username}.`);
     setUser(response.data);
+    console.log("response from server", response.data)
     setTimeout(() => {
       setUserIsLoggedIn(true);
     }, 2000);
@@ -28,7 +31,7 @@ const fetchUser = async (
 };
 
 const LogIn = ({ setMessage, setErrorMessage, submitted, setSubmitted }) => {
-  const SERVER = import.meta.env.SERVER
+
   const { setUser, userIsLoggedIn, setUserIsLoggedIn } =
     useContext(PokemonContext);
   const [input, setInput] = useState({});

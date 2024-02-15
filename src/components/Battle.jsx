@@ -5,7 +5,7 @@ import { PokemonContext } from "../provider/PokemonProvider";
 
 const Battle = () => {
 
-  const SERVER = import.meta.env.SERVER
+  const SERVER = import.meta.env.VITE_SERVER
   // for User
   const { user, setUser } = useContext(PokemonContext);
   //for Pokemon stats

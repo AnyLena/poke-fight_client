@@ -7,7 +7,7 @@ const HighScores = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchUsers = async () => {
-    const SERVER = import.meta.env.SERVER
+    const SERVER = import.meta.env.VITE_SERVER
     try {
       setLoading(true);
       const res = await fetch(`${SERVER}/user/all`);

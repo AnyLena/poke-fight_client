@@ -10,6 +10,7 @@ import charmander from "../../assets/4.gif";
 import squirtle from "../../assets/7.gif";
 
 const createUser = async (user, setMessage, setErrorMessage) => {
+  const SERVER = import.meta.env.VITE_SERVER
   try {
     const response = await axios.post(`${SERVER}/user/`, user);
     setMessage(response.data.message);
@@ -19,7 +20,7 @@ const createUser = async (user, setMessage, setErrorMessage) => {
 };
 
 const SignUp = ({setMessage, setErrorMessage, submitted, setSubmitted}) => {
-  const SERVER = import.meta.env.SERVER
+ 
   const [input, setInput] = useState({
     username: "",
     password: "",
