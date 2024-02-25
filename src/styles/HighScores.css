@@ -15,7 +15,7 @@
   -webkit-text-stroke: 3px #2c70b7;
   letter-spacing: 4px;
   color: #ffcb05;
-  margin: -20px;
+  margin: 0;
 }
 .high-scores ul {
   list-style-type: none;

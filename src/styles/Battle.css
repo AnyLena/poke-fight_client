@@ -4,7 +4,7 @@
 }
 
 .battle {
-  height: 100dvh;
+  min-height: 100dvh;
   padding: 10px;
   margin-top: 6rem;
 
